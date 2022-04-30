@@ -1,1 +1,11 @@
-<h1>Hello, Spring Boot</h1>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <div th:replace="/fragment/header.html :: css"></div>
+    </head>
+    <body>
+        <div class="btn btn-primary">test</div>
+    </body>
+    <footer>
+        <div th:replace="/fragment/footer.html :: javscript"></div>
+    </footer>
+</html>
