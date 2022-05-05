@@ -1,0 +1,25 @@
+CREATE TABLE User
+(
+    id TEXT PRIMARY KEY
+    , password TEXT NOT NULL
+    , name TEXT NOT NULL
+    , role INTEGER NOT NULL
+    , email TEXT NOT NULL
+    , birthday TEXT NOT NULL
+    , phone_number TEXT NOT NULL
+    , use INTEGER NOT NULL
+);
+
+CREATE TABLE Restaurant
+(
+    id INTEGER PRIMARY KEY
+    , name TEXT NOT NULL
+    , type INTEGER NOT NULL
+    , business_number INTEGER NOT NULL UNIQUE
+    , address TEXT NOT NULL
+    , post_number INTEGER NOT NULL
+    , user_id TEXT NOT NULL
+    , use INTEGER NOT NULL
+    , CONSTRAINT fk_user_id FOREIGN KEY (user_id)
+    REFERENCES User(id)
+);

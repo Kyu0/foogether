@@ -1,4 +1,4 @@
-package com.kyu0.foogether;
+package com.kyu0.foogether.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,7 +8,7 @@ public class IndexController {
     
     @GetMapping("/") // 로그인 페이지
     public String index() {
-        return "index";
+        return "login";
     }
 
     @GetMapping("/register") // 회원가입 페이지

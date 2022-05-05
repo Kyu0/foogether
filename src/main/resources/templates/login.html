@@ -15,9 +15,9 @@
           
               <!-- Login Form -->
               <form>
-                <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
-                <input type="password" id="password" class="fadeIn third" name="login" placeholder="password">
-                <input type="submit" class="fadeIn fourth" value="Log In">
+                <input type="text" id="username" class="fadeIn second" placeholder="id">
+                <input type="password" id="password" class="fadeIn third" placeholder="password">
+                <input type="button" class="fadeIn fourth" id="btn-login" value="Log In">
               </form>
           
               <!-- Remind Passowrd -->
@@ -31,5 +31,6 @@
     </body>
     <footer>
         <div th:replace="/fragment/footer.html :: javascript"></div>
+        <script src="js/login.js"></script>
     </footer>
 </html>
