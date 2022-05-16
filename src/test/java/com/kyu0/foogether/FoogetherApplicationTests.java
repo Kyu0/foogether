@@ -9,5 +9,4 @@ class FoogetherApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }

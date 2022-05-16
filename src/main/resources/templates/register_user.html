@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
         <div th:replace="/fragment/header.html :: css"></div>
-        <link href="css/register.css" rel="stylesheet">
+        <link href="/css/register.css" rel="stylesheet">
         <title>Foogether | 회원 가입</title>
     </head>
     <body>
@@ -22,6 +22,10 @@
                     </div>
                     <div class="form-group">
                         <input type="text" class="form-control" id="input-re-password" placeholder="비밀번호 재입력">
+                    </div>
+                    <div class="form-group">
+                        <label for="input-name">이름</label>
+                        <input type="text" class="form-control" id="input-name">
                     </div>
                     <div class="form-group">
                         <label for="input-email">이메일</label>
@@ -47,6 +51,6 @@
     </body>
     <footer>
         <div th:replace="/fragment/footer.html :: javascript"></div>
-        <script src="js/register.js"></script>
+        <script src="/js/register.js"></script>
     </footer>
 </html>

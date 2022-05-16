@@ -7,7 +7,45 @@
         <title>Foogether | 가게 등록</title>
     </head>
     <body>
+        <article class="container">
+            <div class="page-header">
+                <h3>가게 등록</h3>
+            </div>
+            <div class="col-md-6">
+                <form role="form">
+                    <div class="form-group">
+                        <label for="input-name">가게 이름</label>
+                        <input type="text" class="form-control" id="input-id" placeholder="영문, 영문+숫자, 4~20자">
+                    </div>
+                    <div class="form-group">
+                        <label for="input-type">종류</label>
+                        <input type="password" class="form-control" id="input-password" placeholder="영어+숫자 10~20자">
+                    </div>
+                    <div class="form-group">
+                        <label for="input-post-number">우편 번호</label>
+                        <input type="text" class="form-control" id="input-email">
+                    </div>
+                    <div class="form-group">
+                        <label for="input-address">주소</label>
+                        <input type="text" class="form-control" id="input-birthday">
+                    </div>
+                    <div class="form-group">
+                        <label for="input-call-number">가게 전화번호</label>
+                        <input type="text" class="form-control" id="input-phone-number">
+                    </div>
+                    <div class="form-group">
+                        <label for="input-business-number">사업자 등록번호</label>
+                        <input type="text" class="form-control" id="input-phone-number">
+                    </div>
 
+                    <div class="form-group text-center">
+                        <button type="submit" id="btn-register-submit" class="btn btn-primary">
+                            완료
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </article>
     </body>
     <footer>
         <div th:replace="/fragment/footer.html :: javascript"></div>

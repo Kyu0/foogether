@@ -1,6 +1,6 @@
 package com.kyu0.foogether.controller;
 
-import com.kyu0.foogether.model.User;
+import com.kyu0.foogether.dto.user.UserDto;
 import com.kyu0.foogether.service.UserService;
 
 import org.slf4j.Logger;
@@ -21,20 +21,10 @@ public class UserApiController {
         this.userService = userService;
     }
 
-    @PostMapping("/user")
-    public void save(@RequestBody User user) {
+    @PostMapping("/api/v1/user")
+    public void save(@RequestBody UserDto userDto) {
         logger.info("user save");
 
-        userService.save(user);
-
-        logger.info("{}", userService.findById(user.getId()));
-    }
-
-    @PostMapping("/login")
-    public Boolean login(@RequestBody User user) {
-        logger.info("login");
-
-        return userService.findByIdAndPassword(user.getId(), user.getPassword()).isPresent();
+        userService.save(userDto);
     }
 }
-    

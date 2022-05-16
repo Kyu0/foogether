@@ -6,9 +6,9 @@ loginButton.addEventListener('click', () => {
         password: document.getElementById('password').value,
     };
     
-    fetch('/login', API_OPTIONS['post'](data))
-        .then( (response) => response.json())
-        .then( (response) => {
-            console.log(response);
-        });
+    // fetch('/api/v1/login', API_OPTIONS['post'](data))
+    //     .then( (response) => response.json())
+    //     .then( (response) => {
+    //         console.log(response);
+    //     });
 });

@@ -3,7 +3,7 @@
     <head>
         <div th:replace="/fragment/header.html :: css"></div>
         <link href="css/index.css" rel="stylesheet">
-        <title>Foogether | 메인 페이지</title>
+        <title>Foogether | 로그인 페이지</title>
     </head>
     <body>
         <div class="wrapper fadeInDown">
@@ -14,17 +14,17 @@
               </div>
           
               <!-- Login Form -->
-              <form>
-                <input type="text" id="username" class="fadeIn second" placeholder="id">
-                <input type="password" id="password" class="fadeIn third" placeholder="password">
-                <input type="button" class="fadeIn fourth" id="btn-login" value="Log In">
+              <form action="/api/v1/login" method="POST">
+                <input type="text" id="username" name="username" class="fadeIn second" placeholder="id">
+                <input type="password" id="password" name="password" class="fadeIn third" placeholder="password">
+                <input type="submit" class="fadeIn fourth" id="btn-login" value="Log In">
               </form>
           
-              <!-- Remind Passowrd -->
+              <!-- Remind Password -->
               <div class="text-justifyt" id="formFooter">
                 <a class="underlineHover" href="/forgot">비밀번호 찾기</a>
                 <hr/>
-                <a class="underlineHover" href="/register">회원가입</a>
+                <a class="underlineHover" href="/register/user">회원가입</a>
               </div>
             </div>
           </div>

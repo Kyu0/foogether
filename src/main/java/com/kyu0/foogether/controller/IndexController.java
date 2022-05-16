@@ -6,18 +6,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class IndexController {
     
-    @GetMapping("/") // 로그인 페이지
+    @GetMapping("/login") // 로그인 페이지
     public String index() {
         return "login";
     }
 
-    @GetMapping("/register") // 회원가입 페이지
+    @GetMapping("/register/user") // 회원가입 페이지
     public String register() {
-        return "register";
+        return "register_user";
     }
 
     @GetMapping("/forgot") // 비밀번호 찾기 페이지
     public String forgot() {
         return "forgot";
+    }
+
+    @GetMapping("/") // 메인 페이지
+    public String main() {
+        return "main";
     }
 }
