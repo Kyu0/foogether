@@ -27,7 +27,7 @@ public class UserApiController {
     @PostMapping("/api/v1/user")
     public ApiResult<?> save(@RequestBody UserDto userDto) {
         logger.info("received params : {}", userDto);
-
+        
         try {
             return ApiUtils.success(userService.save(userDto));
         }

@@ -4,6 +4,10 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
+
+import java.time.LocalDate;
+import java.time.Month;
+
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
 
 import com.kyu0.foogether.dao.UserRepository;
@@ -47,7 +51,7 @@ public class UserTest {
                         .id("seventhseven")
                         .password("1234")
                         .email("efftar@naver.com")
-                        .birthday("19960707")
+                        .birthday(LocalDate.of(1996, Month.JULY, 7))
                         .name("Kyu0")
                         .phoneNumber("283812938")
                         .role("OWNER")
