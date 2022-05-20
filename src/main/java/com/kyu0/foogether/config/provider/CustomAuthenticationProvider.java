@@ -25,13 +25,14 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+        // 사용자가 입력한 ID, PW
         String username = authentication.getPrincipal().toString();
         String password = authentication.getCredentials().toString();
 
-        UserDetails user = userService.loadUserByUsername(username);
+        UserDetails storedUser = userService.loadUserByUsername(username);
 
         
-        if (user == null || !isMatched(password, user.getPassword())) { // 아이디 없음 혹은 비밀번호 오류일 경우
+        if (storedUser == null || !isMatched(password, storedUser.getPassword())) { // 아이디 없음 혹은 비밀번호 오류일 경우
             throw new UsernameNotFoundException("아이디 혹은 비밀번호가 일치하지 않습니다.");
         }
         // TODO : SQLite Boolean 형식 없음으로 인해 isEnabled 메소드 사용할 수 있도록 해결 필요
@@ -39,7 +40,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             throw new DisabledException("사용할 수 없는 계정입니다.");
         }
         
-        return new UsernamePasswordAuthenticationToken(username, password, user.getAuthorities());
+        return new UsernamePasswordAuthenticationToken(username, password, storedUser.getAuthorities());
     }
 
     @Override

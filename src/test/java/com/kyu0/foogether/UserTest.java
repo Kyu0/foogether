@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
 
 import com.kyu0.foogether.dao.UserRepository;
+import com.kyu0.foogether.dto.user.UserDto;
 import com.kyu0.foogether.model.User;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -14,9 +15,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
@@ -60,12 +64,26 @@ public class UserTest {
         // given
         String username = "seventhseven";
         String password = "1234";
+        String body = String.format("{\"username\" : \"%s\", \"password\" : \"%s\"}", username, password);
+        
+        RequestBuilder request = MockMvcRequestBuilders
+                        .post("/api/v1/login")
+                        // .param("username", username)
+                        // .param("password", password)
+                        .content(body)
+                        .contentType(MediaType.APPLICATION_JSON);
 
         // when
-        mvc.perform(formLogin("/api/v1/login").user(username).password(password))
+        mvc.perform(request)
             .andDo(print())
         // then
             .andExpect(authenticated());
             // .andExpect(forwardedUrl("/"));
+    }
+
+    @DisplayName("회원가입 테스트")
+    @Test
+    void 회원가입테스트() throws Exception {
+
     }
 }

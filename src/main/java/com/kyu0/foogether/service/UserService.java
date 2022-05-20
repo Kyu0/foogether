@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -30,20 +31,28 @@ public class UserService implements UserDetailsService {
         this.passwordEncoder = WebSecurityConfig.getPasswordEncoder();
     }
 
-    public void save(UserDto userDto) {
-        // 비밀번호 암호화
+    /**
+     * 
+     * @param userDto 사용자가 입력한 가입할 유저의 정보
+     * @return 저장된 유저의 정보
+     * @throws IllegalArgumentException
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public User save(UserDto userDto) throws IllegalArgumentException {
         String encodedPassword = passwordEncoder.encode(userDto.getPassword());
         logger.info("raw : {}, encoded : {}", userDto.getPassword(), encodedPassword);
         userDto.setPassword(encodedPassword);
 
-        // 사용 여부 설정
+        // TODO : 사용 여부 설정
         // userDto.setIsUse(true);
         
-        
-        // TODO : Exception 처리
-        userRepository.save(userDto.toEntity());
+        return userRepository.save(userDto.toEntity());
     }
 
+    /**
+     * 
+     * @param id 조회할 사용자의 로그인 ID
+     */
     public Optional<User> findById(String id) {
         return userRepository.findById(id);
     }
