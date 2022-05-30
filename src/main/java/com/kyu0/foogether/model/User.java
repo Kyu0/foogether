@@ -1,16 +1,9 @@
 package com.kyu0.foogether.model;
 
-import java.time.LocalDate;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 /**
  * 유저 정보를 담고 있는 클래스
@@ -52,7 +45,7 @@ public class User {
     
     @NotBlank(message = "생년월일")
     @Column(name="birthday")
-    private LocalDate birthday;
+    private String birthday;
     
     @NotBlank(message = "연락처")
     @Column(name="phone_number")
@@ -63,7 +56,7 @@ public class User {
     
     @Builder
     public User (String id, String password, String name, String role, String email,
-                 LocalDate birthday, String phoneNumber, Boolean isUse) {
+                 String birthday, String phoneNumber, Boolean isUse) {
         
         this.id = id;
         this.password = password;

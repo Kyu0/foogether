@@ -10,6 +10,7 @@ import java.time.Month;
 
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kyu0.foogether.dao.UserRepository;
 import com.kyu0.foogether.dto.user.UserDto;
 import com.kyu0.foogether.model.User;
@@ -40,27 +41,6 @@ public class UserTest {
     private UserRepository userRepository;
     private MockMvc mvc;
 
-    @BeforeEach
-    public void setup() {
-        mvc = MockMvcBuilders
-                .webAppContextSetup(context)
-                .apply(springSecurity())
-                .build();
-
-        User user = User.builder()
-                        .id("seventhseven")
-                        .password("1234")
-                        .email("efftar@naver.com")
-                        .birthday(LocalDate.of(1996, Month.JULY, 7))
-                        .name("Kyu0")
-                        .phoneNumber("283812938")
-                        .role("OWNER")
-                        .isUse(true)
-                        .build();
-
-        userRepository.save(user);
-    }
-
     @DisplayName("로그인 테스트")
     @Test
     @Transactional
@@ -88,6 +68,19 @@ public class UserTest {
     @DisplayName("회원가입 테스트")
     @Test
     void 회원가입테스트() throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        RequestBuilder request = MockMvcRequestBuilders
+                                .post("/api/v1/user")
+                                .content("{\"id\":\"iasdj\""
+                                + ",\"password\":\"1234\""
+                                + ",\"email\": \"sev@naver.com\""
+                                + ",\"phoneNumber\": \"12931293912\""
+                                + ",\"birthday\": \"1996-07-07\""
+                                + ",\"name\" : \"kyu0\""
+                                + ",\"role\" : \"OWNER\"}")
+                                .contentType(MediaType.APPLICATION_JSON);
 
+        mvc.perform(request)
+            .andDo(print());
     }
 }

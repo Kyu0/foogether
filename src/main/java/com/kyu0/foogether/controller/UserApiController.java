@@ -2,16 +2,12 @@ package com.kyu0.foogether.controller;
 
 import com.kyu0.foogether.dto.user.UserDto;
 import com.kyu0.foogether.service.UserService;
-import com.kyu0.foogether.utility.api.ApiResult;
-import com.kyu0.foogether.utility.api.ApiUtils;
+import com.kyu0.foogether.utility.api.*;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.slf4j.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserApiController {

@@ -1,12 +1,12 @@
 package com.kyu0.foogether.dto.user;
 
+import java.time.LocalDate;
+
 import com.kyu0.foogether.model.User;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import lombok.*;
 
 @Getter
 @Setter
@@ -18,12 +18,13 @@ public class UserDto {
     private String name;
     private String role;
     private String email;
-    private String birthday;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate birthday;
     private String phoneNumber;
     private Boolean isUse;
 
     @Builder
-    public UserDto(String id, String password, String name, String role, String email, String birthday, String phoneNumber) {
+    public UserDto(String id, String password, String name, String role, String email, LocalDate birthday, String phoneNumber) {
         this.id = id;
         this.password = password;
         this.name = name;
@@ -41,7 +42,7 @@ public class UserDto {
                     .name(this.name)
                     .role(this.role)
                     .email(this.email)
-                    .birthday(this.birthday)
+                    .birthday(this.birthday.toString())
                     .phoneNumber(this.phoneNumber)
                     .isUse(this.isUse)
                 .build();
