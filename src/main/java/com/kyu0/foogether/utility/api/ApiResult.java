@@ -1,16 +1,15 @@
 package com.kyu0.foogether.utility.api;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ApiResult<T> {
-    private final boolean success;
-    private final T response;
-    private final ApiError error;
+    private boolean success;
+    private T response;
+    private ApiError error;
 
-    public ApiResult(boolean success, T response, ApiError error) {
-        this.success = success;
-        this.response = response;
-        this.error = error;
-    }
 }
