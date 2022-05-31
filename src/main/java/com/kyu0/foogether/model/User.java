@@ -1,7 +1,9 @@
 package com.kyu0.foogether.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.*;
+
+import static com.kyu0.foogether.utility.RegExpPattern.*;
 
 import lombok.*;
 
@@ -24,6 +26,7 @@ public class User {
 
     @Id
     @NotBlank(message = "아이디")
+    @Size(min = 5, max = 16, message = "아이디는 5자 이상 16자 이하로 입력해주세요.")
     @Column(name="id")
     private String id;
     
@@ -32,6 +35,7 @@ public class User {
     private String password;
     
     @NotBlank(message = "이름")
+    @Size(min = 2, message = "이름은 성을 포함해 입력해주세요.")
     @Column(name="name")
     private String name;
     
@@ -39,15 +43,18 @@ public class User {
     @Column(name="role")
     private String role;
 
-    @NotBlank(message = "이메일")
+    @NotBlank(message = "빈 칸은 허용되지 않습니다.")
+    @Email(message = "이메일 형식이 맞지 않습니다.")
     @Column(name="email")
     private String email;
     
     @NotBlank(message = "생년월일")
+    @Pattern(regexp = BIRTHDAY_PATTERN, message = "생년월일은 yyyy-MM-dd 또는 yyyyMMdd (y:생년, M:생월, d:생일) 의 형식으로 입력해주세요.")
     @Column(name="birthday")
     private String birthday;
     
     @NotBlank(message = "연락처")
+    @Pattern(regexp = PHONE_NUMBER_PATTERN, message = "연락처는 000-000-0000 또는 000-0000-0000, 00-000-0000 형식으로 입력해주세요.")
     @Column(name="phone_number")
     private String phoneNumber;
     
