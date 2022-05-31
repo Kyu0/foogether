@@ -28,7 +28,7 @@ public class UserApiController {
             return ApiUtils.success(userService.save(userDto));
         }
         catch (IllegalArgumentException e) {
-            return ApiUtils.error(String.format("전달 받은 파라미터가 잘못되었습니다. {0}", e.getMessage()), HttpStatus.BAD_REQUEST.value());
+            return ApiUtils.error(String.format("전달 받은 파라미터가 잘못되었습니다.\n {0}", e.getMessage()), HttpStatus.BAD_REQUEST.value());
         }
     }
 }
