@@ -31,17 +31,11 @@ public class UserService implements UserDetailsService {
         this.passwordEncoder = WebSecurityConfig.getPasswordEncoder();
     }
 
-    /**
-     * 
-     * @param userDto 사용자가 입력한 가입할 유저의 정보
-     * @return 저장된 유저의 정보
-     * @throws IllegalArgumentException
-     */
     @Transactional(rollbackFor = Exception.class)
     public User save(UserDto userDto) throws IllegalArgumentException {
         String encodedPassword = passwordEncoder.encode(userDto.getPassword());
         logger.info("raw : {}, encoded : {}", userDto.getPassword(), encodedPassword);
-        userDto.setPassword(encodedPassword);
+        userDto.setEncodedPassword(encodedPassword);
 
         // TODO : 사용 여부 설정
         // userDto.setIsUse(true);
@@ -49,10 +43,6 @@ public class UserService implements UserDetailsService {
         return userRepository.save(userDto.toEntity());
     }
 
-    /**
-     * 
-     * @param id 조회할 사용자의 로그인 ID
-     */
     public Optional<User> findById(String id) {
         return userRepository.findById(id);
     }
