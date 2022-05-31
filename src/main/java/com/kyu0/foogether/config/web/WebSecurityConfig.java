@@ -19,6 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private static final int STRENGTH = 10;
     private UserService userService;
 
     @Autowired
@@ -60,6 +61,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public static PasswordEncoder getPasswordEncoder() {
-        return new BCryptPasswordEncoder(10);
+        return new BCryptPasswordEncoder(STRENGTH);
     }
 }
