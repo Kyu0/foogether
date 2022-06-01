@@ -1,6 +1,5 @@
 package com.kyu0.foogether.controller;
 
-import javax.persistence.RollbackException;
 import javax.validation.Valid;
 
 import com.kyu0.foogether.dto.user.UserDto;
@@ -9,9 +8,6 @@ import com.kyu0.foogether.utility.api.*;
 
 import org.slf4j.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.transaction.TransactionSystemException;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
