@@ -111,7 +111,7 @@ public class UserRegisterTest {
     void 유효하지_않은_데이터_2() {
         UserDto testUser = UserDto.builder()
                             .id("test1")
-                            .password("123812938")
+                            .password("12381")
                             .birthday(LocalDate.parse("2012-05-12", DateTimeFormatter.ISO_DATE))
                             .email("test@naver.com")
                             .name("테스트")
@@ -121,7 +121,7 @@ public class UserRegisterTest {
 
         ResponseEntity<ApiResult<User>> result = getResult(testUser);
 
-        assertNotEquals(false, result.getBody().isSuccess());
+        assertEquals(false, result.getBody().isSuccess());
         System.err.println(((ApiError)result.getBody().getError()).getMessage());
     }
 }

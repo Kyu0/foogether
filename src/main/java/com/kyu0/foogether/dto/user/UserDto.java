@@ -18,7 +18,7 @@ import lombok.*;
 public class UserDto {
     private String id;
 
-    @Pattern(regexp = PASSWORD_PATTERN, message = "비밀번호는 6자 이상, 32자 이하, 영어 + 숫자 조합으로 입력해주세요.")
+    @Pattern(regexp = PASSWORD_PATTERN, message = "비밀번호는 8자 이상, 32자 이하, 영어 + 숫자 조합으로 입력해주세요.")
     private String password;
     private String name;
     private String role;

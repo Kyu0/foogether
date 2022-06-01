@@ -1,6 +1,7 @@
 package com.kyu0.foogether.controller;
 
 import javax.persistence.RollbackException;
+import javax.validation.Valid;
 
 import com.kyu0.foogether.dto.user.UserDto;
 import com.kyu0.foogether.service.UserService;
@@ -25,14 +26,9 @@ public class UserApiController {
     }
 
     @PostMapping("/api/v1/user")
-    public ApiResult<?> save(@RequestBody UserDto userDto) {
+    public ApiResult<?> save(@Valid @RequestBody UserDto userDto) {
         logger.info("received params : {}", userDto);
-        
-        try {
-            return ApiUtils.success(userService.save(userDto));
-        }
-        catch (Exception e) {
-            return ApiUtils.error(String.format("전달 받은 파라미터가 잘못되었습니다. %s", e.getMessage()), HttpStatus.BAD_REQUEST.value());
-        }
+    
+        return ApiUtils.success(userService.save(userDto));
     }
 }
