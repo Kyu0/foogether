@@ -17,6 +17,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -32,15 +33,17 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public User save(UserDto userDto) throws IllegalArgumentException {
-        String encodedPassword = passwordEncoder.encode(userDto.getPassword());
-        logger.info("raw : {}, encoded : {}", userDto.getPassword(), encodedPassword);
-        userDto.setEncodedPassword(encodedPassword);
+    public User save(UserDto userDto) {
+        setEncodedPassword(userDto);
 
         // TODO : 사용 여부 설정
-        // userDto.setIsUse(true);
         
         return userRepository.save(userDto.toEntity());
+    }
+
+    private void setEncodedPassword(UserDto userDto) {
+        String encodedPassword = passwordEncoder.encode(userDto.getPassword());
+        userDto.setEncodedPassword(encodedPassword);
     }
 
     public Optional<User> findById(String id) {
@@ -56,7 +59,6 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return new UserAuth(findById(username)
-            .orElseThrow(() -> new UsernameNotFoundException("해당 ID를 가진 유저를 찾을 수 없습니다." + " : " + username))
-        );
+            .orElseThrow(() -> new UsernameNotFoundException("해당 ID를 가진 유저를 찾을 수 없습니다." + " : " + username)));
     }
 }

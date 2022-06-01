@@ -49,7 +49,7 @@ public class User {
     private String email;
     
     @NotBlank(message = "생년월일")
-    @Pattern(regexp = BIRTHDAY_PATTERN, message = "생년월일은 yyyy-MM-dd 또는 yyyyMMdd (y:생년, M:생월, d:생일) 의 형식으로 입력해주세요.")
+    @Pattern(regexp = BIRTHDAY_PATTERN, message = "생년월일은 yyyy-MM-dd (y:생년, M:생월, d:생일) 의 형식으로 입력해주세요.")
     @Column(name="birthday")
     private String birthday;
     

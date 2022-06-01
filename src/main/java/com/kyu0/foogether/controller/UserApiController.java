@@ -1,5 +1,7 @@
 package com.kyu0.foogether.controller;
 
+import javax.persistence.RollbackException;
+
 import com.kyu0.foogether.dto.user.UserDto;
 import com.kyu0.foogether.service.UserService;
 import com.kyu0.foogether.utility.api.*;
@@ -7,6 +9,8 @@ import com.kyu0.foogether.utility.api.*;
 import org.slf4j.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.transaction.TransactionSystemException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -27,8 +31,8 @@ public class UserApiController {
         try {
             return ApiUtils.success(userService.save(userDto));
         }
-        catch (IllegalArgumentException e) {
-            return ApiUtils.error(String.format("전달 받은 파라미터가 잘못되었습니다.\n {0}", e.getMessage()), HttpStatus.BAD_REQUEST.value());
+        catch (Exception e) {
+            return ApiUtils.error(String.format("전달 받은 파라미터가 잘못되었습니다. %s", e.getMessage()), HttpStatus.BAD_REQUEST.value());
         }
     }
 }
