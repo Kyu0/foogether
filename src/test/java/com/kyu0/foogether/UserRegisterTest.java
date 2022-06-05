@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 
 import com.kyu0.foogether.dto.user.UserDto;
 import com.kyu0.foogether.model.User;
+import com.kyu0.foogether.support.UserRole;
 import com.kyu0.foogether.utility.api.*;
 
 import org.junit.jupiter.api.*;
@@ -43,7 +44,7 @@ public class UserRegisterTest {
                             .email("test@naver.com")
                             .name("테스트")
                             .phoneNumber("010-1234-5678")
-                            .role("ROLE_OWNER")
+                            .role(UserRole.OWNER)
                         .build();
 
         ResponseEntity<ApiResult<User>> result = getResult(testUser);
@@ -61,7 +62,7 @@ public class UserRegisterTest {
                             .email("test@naver.com")
                             .name("테스트")
                             .phoneNumber("010-1234-5678")
-                            .role("ROLE_OWNER")
+                            .role(UserRole.OWNER)
                         .build();
 
         ResponseEntity<ApiResult<User>> result = getResult(testUser);
@@ -79,7 +80,7 @@ public class UserRegisterTest {
                             .email("test@naver.com")
                             .name("테스트")
                             .phoneNumber("02-123-5678")
-                            .role("ROLE_OWNER")
+                            .role(UserRole.OWNER)
                         .build();
 
         ResponseEntity<ApiResult<User>> result = getResult(testUser);
@@ -97,7 +98,7 @@ public class UserRegisterTest {
                             .email("test@naver.com")
                             .name("테스트")
                             .phoneNumber("010-1234-5678")
-                            .role("ROLE_OWNER")
+                            .role(UserRole.OWNER)
                         .build();
 
         ResponseEntity<ApiResult<User>> result = getResult(testUser);
@@ -116,7 +117,7 @@ public class UserRegisterTest {
                             .email("test@naver.com")
                             .name("테스트")
                             .phoneNumber("010-1234-5678")
-                            .role("ROLE_OWNER")
+                            .role(UserRole.OWNER)
                         .build();
 
         ResponseEntity<ApiResult<User>> result = getResult(testUser);
@@ -135,7 +136,7 @@ public class UserRegisterTest {
                                 .email("test@naver.com")
                                 .name("테스트")
                                 .phoneNumber("010-1234-5678")
-                                .role("ROLE_OWNER")
+                                .role(UserRole.OWNER)
                             .build();
         
         ResponseEntity<ApiResult<User>> result = getResult(testUser);
@@ -154,7 +155,7 @@ public class UserRegisterTest {
                             .email("test@naver.com")
                             .name("테스트")
                             .phoneNumber("010-1234-5678")
-                            .role("ROLE_OWNER")
+                            .role(UserRole.OWNER)
                         .build();
 
         ResponseEntity<ApiResult<User>> result = getResult(testUser);
@@ -173,7 +174,7 @@ public class UserRegisterTest {
                             .email("test@.")
                             .name("테스트")
                             .phoneNumber("010-1234-5678")
-                            .role("ROLE_OWNER")
+                            .role(UserRole.OWNER)
                         .build();
 
         ResponseEntity<ApiResult<User>> result = getResult(testUser);
@@ -192,7 +193,7 @@ public class UserRegisterTest {
                             .email("test@naver")
                             .name("테스트")
                             .phoneNumber("010-1234-5678")
-                            .role("ROLE_OWNER")
+                            .role(UserRole.OWNER)
                         .build();
 
         ResponseEntity<ApiResult<User>> result = getResult(testUser);
@@ -210,7 +211,7 @@ public class UserRegisterTest {
                             .email("testnaver.com")
                             .name("테스트")
                             .phoneNumber("010-1234-5678")
-                            .role("ROLE_OWNER")
+                            .role(UserRole.OWNER)
                         .build();
 
         ResponseEntity<ApiResult<User>> result = getResult(testUser);
@@ -229,7 +230,7 @@ public class UserRegisterTest {
                             .email("test@naver.com")
                             .name("테스트")
                             .phoneNumber("010-12345-5678")
-                            .role("ROLE_OWNER")
+                            .role(UserRole.OWNER)
                         .build();
 
         ResponseEntity<ApiResult<User>> result = getResult(testUser);
@@ -248,7 +249,7 @@ public class UserRegisterTest {
                             .email("test@naver.com")
                             .name("테스트")
                             .phoneNumber("010125678")
-                            .role("ROLE_OWNER")
+                            .role(UserRole.OWNER)
                         .build();
 
         ResponseEntity<ApiResult<User>> result = getResult(testUser);
@@ -267,7 +268,7 @@ public class UserRegisterTest {
                             .email("test@naver.com")
                             .name("테스트")
                             .phoneNumber("110-1234-5678")
-                            .role("ROLE_OWNER")
+                            .role(UserRole.OWNER)
                         .build();
 
         ResponseEntity<ApiResult<User>> result = getResult(testUser);

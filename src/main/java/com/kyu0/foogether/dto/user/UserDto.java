@@ -6,6 +6,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
 
 import com.kyu0.foogether.model.User;
+import com.kyu0.foogether.support.UserRole;
+
 import static com.kyu0.foogether.utility.RegExpPattern.PASSWORD_PATTERN;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -22,7 +24,7 @@ public class UserDto {
     @Pattern(regexp = PASSWORD_PATTERN, message = "비밀번호는 8자 이상, 32자 이하, 영어 + 숫자 조합으로 입력해주세요.")
     private String password;
     private String name;
-    private String role;
+    private UserRole role;
     private String email;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthday;
@@ -30,7 +32,7 @@ public class UserDto {
     private Boolean isUse;
 
     @Builder
-    public UserDto(String id, String password, String name, String role, String email, LocalDate birthday, String phoneNumber) {
+    public UserDto(String id, String password, String name, UserRole role, String email, LocalDate birthday, String phoneNumber) {
         this.id = id;
         this.password = password;
         this.name = name;
