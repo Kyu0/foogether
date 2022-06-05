@@ -74,7 +74,7 @@ public class UserRegisterTest {
     void 유효한_데이터_3() {
         UserDto testUser = UserDto.builder()
                             .id("test1")
-                            .password("test123456**")
+                            .password("test123456")
                             .birthday(LocalDate.parse("2012-05-12", DateTimeFormatter.ISO_DATE))
                             .email("test@naver.com")
                             .name("테스트")
@@ -111,11 +111,162 @@ public class UserRegisterTest {
     void 유효하지_않은_데이터_2() {
         UserDto testUser = UserDto.builder()
                             .id("test1")
-                            .password("12381")
+                            .password("12382231")
                             .birthday(LocalDate.parse("2012-05-12", DateTimeFormatter.ISO_DATE))
                             .email("test@naver.com")
                             .name("테스트")
                             .phoneNumber("010-1234-5678")
+                            .role("ROLE_OWNER")
+                        .build();
+
+        ResponseEntity<ApiResult<User>> result = getResult(testUser);
+
+        assertEquals(false, result.getBody().isSuccess());
+        System.err.println(((ApiError)result.getBody().getError()).getMessage());
+    }
+    
+    @DisplayName("실패, 올바르지 않은 생년월일 입력 1")
+    @Test
+    void 유효하지_않은_데이터_3() {
+        UserDto testUser = UserDto.builder()
+                                .id("test1")
+                                .password("test123456")
+                                .birthday(LocalDate.parse("1899-01-54", DateTimeFormatter.ISO_DATE))
+                                .email("test@naver.com")
+                                .name("테스트")
+                                .phoneNumber("010-1234-5678")
+                                .role("ROLE_OWNER")
+                            .build();
+        
+        ResponseEntity<ApiResult<User>> result = getResult(testUser);
+        
+        assertEquals(false, result.getBody().isSuccess());
+        System.err.println(((ApiError)result.getBody().getError()).getMessage());
+    }
+
+    @DisplayName("실패, 올바르지 않은 생년월일 입력 2")
+    @Test
+    void 유효하지_않은_데이터_4() {
+        UserDto testUser = UserDto.builder()
+                            .id("test1")
+                            .password("1rb122381")
+                            .birthday(LocalDate.parse("1899-05-12", DateTimeFormatter.ISO_DATE))
+                            .email("test@naver.com")
+                            .name("테스트")
+                            .phoneNumber("010-1234-5678")
+                            .role("ROLE_OWNER")
+                        .build();
+
+        ResponseEntity<ApiResult<User>> result = getResult(testUser);
+
+        assertEquals(false, result.getBody().isSuccess());
+        System.err.println(((ApiError)result.getBody().getError()).getMessage());
+    }
+
+    @DisplayName("실패, 이메일 형식이 아닌 값 입력 - 1")
+    @Test
+    void 유효하지_않은_데이터_5() {
+        UserDto testUser = UserDto.builder()
+                            .id("test1")
+                            .password("test123456")
+                            .birthday(LocalDate.parse("2012-05-12", DateTimeFormatter.ISO_DATE))
+                            .email("test@.")
+                            .name("테스트")
+                            .phoneNumber("010-1234-5678")
+                            .role("ROLE_OWNER")
+                        .build();
+
+        ResponseEntity<ApiResult<User>> result = getResult(testUser);
+
+        assertEquals(false, result.getBody().isSuccess());
+        System.err.println(((ApiError)result.getBody().getError()).getMessage());
+    }
+
+    @DisplayName("성공, 이메일 형식이 아닌 값 입력 - 2 (최상위 도메인은 없어도 가능)")
+    @Test
+    void 유효하지_않은_데이터_6() {
+        UserDto testUser = UserDto.builder()
+                            .id("test1")
+                            .password("test123456")
+                            .birthday(LocalDate.parse("2012-05-12", DateTimeFormatter.ISO_DATE))
+                            .email("test@naver")
+                            .name("테스트")
+                            .phoneNumber("010-1234-5678")
+                            .role("ROLE_OWNER")
+                        .build();
+
+        ResponseEntity<ApiResult<User>> result = getResult(testUser);
+
+        assertEquals(true, result.getBody().isSuccess());
+    }
+
+    @DisplayName("실패, 이메일 형식이 아닌 값 입력 - 3")
+    @Test
+    void 유효하지_않은_데이터_7() {
+        UserDto testUser = UserDto.builder()
+                            .id("test1")
+                            .password("test123456")
+                            .birthday(LocalDate.parse("2012-05-12", DateTimeFormatter.ISO_DATE))
+                            .email("testnaver.com")
+                            .name("테스트")
+                            .phoneNumber("010-1234-5678")
+                            .role("ROLE_OWNER")
+                        .build();
+
+        ResponseEntity<ApiResult<User>> result = getResult(testUser);
+
+        assertEquals(false, result.getBody().isSuccess());
+        System.err.println(((ApiError)result.getBody().getError()).getMessage());
+    }
+
+    @DisplayName("실패, 올바르지 않은 휴대폰 번호 입력 - 1")
+    @Test
+    void 유효하지_않은_데이터_8() {
+        UserDto testUser = UserDto.builder()
+                            .id("test1")
+                            .password("test123456")
+                            .birthday(LocalDate.parse("2012-05-12", DateTimeFormatter.ISO_DATE))
+                            .email("test@naver.com")
+                            .name("테스트")
+                            .phoneNumber("010-12345-5678")
+                            .role("ROLE_OWNER")
+                        .build();
+
+        ResponseEntity<ApiResult<User>> result = getResult(testUser);
+
+        assertEquals(false, result.getBody().isSuccess());
+        System.err.println(((ApiError)result.getBody().getError()).getMessage());
+    }
+
+    @DisplayName("실패, 올바르지 않은 휴대폰 번호 입력 - 2")
+    @Test
+    void 유효하지_않은_데이터_9() {
+        UserDto testUser = UserDto.builder()
+                            .id("test1")
+                            .password("test123456")
+                            .birthday(LocalDate.parse("2012-05-12", DateTimeFormatter.ISO_DATE))
+                            .email("test@naver.com")
+                            .name("테스트")
+                            .phoneNumber("010125678")
+                            .role("ROLE_OWNER")
+                        .build();
+
+        ResponseEntity<ApiResult<User>> result = getResult(testUser);
+
+        assertEquals(false, result.getBody().isSuccess());
+        System.err.println(((ApiError)result.getBody().getError()).getMessage());
+    }
+
+    @DisplayName("실패, 올바르지 않은 휴대폰 번호 입력 - 3")
+    @Test
+    void 유효하지_않은_데이터_10() {
+        UserDto testUser = UserDto.builder()
+                            .id("test1")
+                            .password("test123456")
+                            .birthday(LocalDate.parse("2012-05-12", DateTimeFormatter.ISO_DATE))
+                            .email("test@naver.com")
+                            .name("테스트")
+                            .phoneNumber("110-1234-5678")
                             .role("ROLE_OWNER")
                         .build();
 

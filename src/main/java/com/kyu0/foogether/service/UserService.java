@@ -28,7 +28,7 @@ public class UserService implements UserDetailsService {
         this.passwordEncoder = WebSecurityConfig.getPasswordEncoder();
     }
 
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional
     public User save(UserDto userDto) {
         setEncodedPassword(userDto);
 

@@ -2,6 +2,7 @@ package com.kyu0.foogether.dto.user;
 
 import java.time.LocalDate;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
 
 import com.kyu0.foogether.model.User;
@@ -40,7 +41,7 @@ public class UserDto {
         this.isUse = true;
     }
 
-    public User toEntity() {
+    public @Valid User toEntity() {
         return User.builder()
                     .id(this.id)
                     .password(this.password)
