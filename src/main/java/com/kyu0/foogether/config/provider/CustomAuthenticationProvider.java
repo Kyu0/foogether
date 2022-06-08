@@ -1,6 +1,6 @@
 package com.kyu0.foogether.config.provider;
 
-import com.kyu0.foogether.service.UserService;
+import com.kyu0.foogether.service.MemberService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.*;
@@ -10,11 +10,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
-    private UserService userService;
+    private MemberService userService;
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public CustomAuthenticationProvider (UserService userService, PasswordEncoder passwordEncoder) {
+    public CustomAuthenticationProvider (MemberService userService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
     }
@@ -31,8 +31,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         if (storedUser == null || !isMatched(password, storedUser.getPassword())) { // 아이디 없음 혹은 비밀번호 오류일 경우
             throw new UsernameNotFoundException("아이디 혹은 비밀번호가 일치하지 않습니다.");
         }
-        // TODO : SQLite Boolean 형식 없음으로 인해 isEnabled 메소드 사용할 수 있도록 해결 필요
-        else if (!true){ // 사용 정지된 계정일 경우
+        else if (!storedUser.isEnabled()){ // 사용 정지된 계정일 경우
             throw new DisabledException("사용할 수 없는 계정입니다.");
         }
         

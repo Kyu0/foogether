@@ -2,10 +2,12 @@ package com.kyu0.foogether.service;
 
 import java.util.Optional;
 
+import javax.persistence.EntityExistsException;
+
 import com.kyu0.foogether.config.web.WebSecurityConfig;
-import com.kyu0.foogether.dao.UserRepository;
-import com.kyu0.foogether.dto.user.*;
-import com.kyu0.foogether.model.User;
+import com.kyu0.foogether.dao.MemberRepository;
+import com.kyu0.foogether.dto.member.*;
+import com.kyu0.foogether.model.Member;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,34 +18,37 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class UserService implements UserDetailsService {
+public class MemberService implements UserDetailsService {
     
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    private UserRepository userRepository;
+    private MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public MemberService(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
         this.passwordEncoder = WebSecurityConfig.getPasswordEncoder();
     }
 
     @Transactional
-    public User save(UserDto userDto) {
-        setEncodedPassword(userDto);
+    public Member save(MemberDto memberDto) {
+        setEncodedPassword(memberDto);
+        memberDto.setIsUse(true);
 
-        // TODO : 사용 여부 설정
+        if (memberRepository.existsById(memberDto.getId())) {
+            throw new EntityExistsException("이미 존재하는 로그인 ID 입니다.");
+        }
         
-        return userRepository.save(userDto.toEntity());
+        return memberRepository.save(memberDto.toEntity());
     }
 
-    private void setEncodedPassword(UserDto userDto) {
-        String encodedPassword = passwordEncoder.encode(userDto.getPassword());
-        userDto.setEncodedPassword(encodedPassword);
+    private void setEncodedPassword(MemberDto memberDto) {
+        String encodedPassword = passwordEncoder.encode(memberDto.getPassword());
+        memberDto.setEncodedPassword(encodedPassword);
     }
 
-    public Optional<User> findById(String id) {
-        return userRepository.findById(id);
+    public Optional<Member> findById(String id) {
+        return memberRepository.findById(id);
     }
 
     /**
@@ -54,7 +59,7 @@ public class UserService implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return new UserAuth(findById(username)
+        return new MemberAuth(findById(username)
             .orElseThrow(() -> new UsernameNotFoundException("해당 ID를 가진 유저를 찾을 수 없습니다." + " : " + username)));
     }
 }

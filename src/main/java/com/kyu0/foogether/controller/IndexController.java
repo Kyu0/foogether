@@ -11,9 +11,9 @@ public class IndexController {
         return "login";
     }
 
-    @GetMapping("/register/user") // 회원가입 페이지
+    @GetMapping("/register/member") // 회원가입 페이지
     public String register() {
-        return "register_user";
+        return "register_member";
     }
 
     @GetMapping("/forgot") // 비밀번호 찾기 페이지

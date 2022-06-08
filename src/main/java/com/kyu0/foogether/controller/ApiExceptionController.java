@@ -1,5 +1,6 @@
 package com.kyu0.foogether.controller;
 
+import javax.persistence.EntityExistsException;
 import javax.validation.ConstraintViolationException;
 
 import com.kyu0.foogether.utility.api.ApiResult;
@@ -27,5 +28,10 @@ public class ApiExceptionController {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ApiResult<?> enumNotParsableExceptionHandle(HttpMessageNotReadableException e) {
         return ApiUtils.error("role 컬럼에는 ['OWNER', 'ADMIN', 'RIDER', 'CUSTOMER'] 만 입력해주세요.", HttpStatus.BAD_REQUEST.value());
+    }
+
+    @ExceptionHandler(EntityExistsException.class)
+    public ApiResult<?> entityExistsExceptionHandle(EntityExistsException e) {
+        return ApiUtils.error(e.getMessage(), HttpStatus.BAD_REQUEST.value());
     }
 }

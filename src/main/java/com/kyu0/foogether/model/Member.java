@@ -3,7 +3,7 @@ package com.kyu0.foogether.model;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
-import com.kyu0.foogether.support.UserRole;
+import com.kyu0.foogether.support.MemberRole;
 
 import static com.kyu0.foogether.utility.RegExpPattern.*;
 
@@ -24,7 +24,7 @@ import lombok.*;
 @Getter
 @Entity
 @ToString
-public class User {
+public class Member {
 
     @Id
     @NotBlank(message = "아이디")
@@ -43,7 +43,7 @@ public class User {
     
     @Enumerated(EnumType.STRING)
     @Column(name="role")
-    private UserRole role;
+    private MemberRole role;
 
     @NotBlank(message = "빈 칸은 허용되지 않습니다.")
     @Email(message = "이메일 형식이 맞지 않습니다.")
@@ -64,7 +64,7 @@ public class User {
     private Boolean isUse;
     
     @Builder
-    public User (String id, String password, String name, UserRole role, String email,
+    public Member (String id, String password, String name, MemberRole role, String email,
                  String birthday, String phoneNumber, Boolean isUse) {
         
         this.id = id;

@@ -1,7 +1,7 @@
 package com.kyu0.foogether.config.web;
 
 import com.kyu0.foogether.config.provider.CustomAuthenticationProvider;
-import com.kyu0.foogether.service.UserService;
+import com.kyu0.foogether.service.MemberService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -20,11 +20,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final int STRENGTH = 10;
-    private UserService userService;
+    private MemberService memberService;
 
     @Autowired
-    public WebSecurityConfig(UserService userService) {
-        this.userService = userService;
+    public WebSecurityConfig(MemberService memberService) {
+        this.memberService = memberService;
     }
 
     @Override
@@ -35,6 +35,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+            .headers()
+                .frameOptions().disable()
+        .and()
             .csrf()
                 .disable()
             .authorizeRequests()
@@ -56,7 +59,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public AuthenticationProvider authenticationProvider() {
-        return new CustomAuthenticationProvider(userService, getPasswordEncoder());
+        return new CustomAuthenticationProvider(memberService, getPasswordEncoder());
     }
 
     @Bean

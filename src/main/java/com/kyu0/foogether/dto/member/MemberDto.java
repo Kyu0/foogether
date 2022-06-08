@@ -1,12 +1,12 @@
-package com.kyu0.foogether.dto.user;
+package com.kyu0.foogether.dto.member;
 
 import java.time.LocalDate;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
 
-import com.kyu0.foogether.model.User;
-import com.kyu0.foogether.support.UserRole;
+import com.kyu0.foogether.model.Member;
+import com.kyu0.foogether.support.MemberRole;
 
 import static com.kyu0.foogether.utility.RegExpPattern.PASSWORD_PATTERN;
 
@@ -18,13 +18,13 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @ToString
-public class UserDto {
+public class MemberDto {
     private String id;
 
     @Pattern(regexp = PASSWORD_PATTERN, message = "비밀번호는 8자 이상, 32자 이하, 영어 + 숫자 조합으로 입력해주세요.")
     private String password;
     private String name;
-    private UserRole role;
+    private MemberRole role;
     private String email;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthday;
@@ -32,7 +32,7 @@ public class UserDto {
     private Boolean isUse;
 
     @Builder
-    public UserDto(String id, String password, String name, UserRole role, String email, LocalDate birthday, String phoneNumber) {
+    public MemberDto(String id, String password, String name, MemberRole role, String email, LocalDate birthday, String phoneNumber) {
         this.id = id;
         this.password = password;
         this.name = name;
@@ -43,8 +43,8 @@ public class UserDto {
         this.isUse = true;
     }
 
-    public @Valid User toEntity() {
-        return User.builder()
+    public @Valid Member toEntity() {
+        return Member.builder()
                     .id(this.id)
                     .password(this.password)
                     .name(this.name)

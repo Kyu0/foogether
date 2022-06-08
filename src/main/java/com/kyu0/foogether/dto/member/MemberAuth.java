@@ -1,38 +1,38 @@
-package com.kyu0.foogether.dto.user;
+package com.kyu0.foogether.dto.member;
 
 import java.util.*;
 
-import com.kyu0.foogether.model.User;
+import com.kyu0.foogether.model.Member;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class UserAuth implements UserDetails {
+public class MemberAuth implements UserDetails {
 
-    private User user;
+    private Member member;
 
-    public UserAuth (User user) {
-        this.user = user;
+    public MemberAuth (Member member) {
+        this.member = member;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
 
-        authorities.add(new SimpleGrantedAuthority(user.getRole().getAuthority()));
+        authorities.add(new SimpleGrantedAuthority(member.getRole().getAuthority()));
         
         return authorities;
     }
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return member.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return user.getId();
+        return member.getId();
     }
 
     @Override
@@ -52,7 +52,7 @@ public class UserAuth implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return user.getIsUse();
+        return member.getIsUse();
     }
     
 }
