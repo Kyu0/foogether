@@ -24,6 +24,7 @@ import lombok.*;
 public class Restaurant {
     
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Integer id;
     
@@ -41,16 +42,20 @@ public class Restaurant {
     
     @Column(name = "post_number")
     private Integer postNumber;
-    
-    @Column(name = "user_id")
-    private String userId;
+
+    @Column(name = "description")
+    private String description;
     
     @Column(name = "use")
     private Boolean isUse;
+
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
     
     @Builder
     public Restaurant(Integer id, String name, Integer type, Integer businessNumber, String address
-                    , Integer postNumber, String userId, Boolean isUse) {
+                    , Integer postNumber, Member member, Boolean isUse) {
         
         this.id = id;
         this.name = name;
@@ -58,7 +63,7 @@ public class Restaurant {
         this.businessNumber = businessNumber;
         this.address = address;
         this.postNumber = postNumber;
-        this.userId = userId;
+        this.member = member;
         this.isUse = isUse;
     }
 }

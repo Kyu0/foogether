@@ -25,8 +25,4 @@ public class RestaurantService {
     public Optional<Restaurant> findById(Integer id) {
         return restaurantRepository.findById(id);
     }
-
-    public Optional<Restaurant> findByUserId(String userId) {
-        return restaurantRepository.findByUserId(userId);
-    }
 }

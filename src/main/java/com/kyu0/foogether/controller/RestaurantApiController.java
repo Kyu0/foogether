@@ -27,9 +27,4 @@ public class RestaurantApiController {
     public Optional<Restaurant> findById(@PathVariable(name = "id") Integer id) {
         return restaurantService.findById(id);
     }
-
-    @GetMapping("/api/v1/user/restaurant/{userId}")
-    public Optional<Restaurant> findByUserId(@PathVariable(name = "userId") String userId) {
-        return restaurantService.findByUserId(userId);
-    }
 }

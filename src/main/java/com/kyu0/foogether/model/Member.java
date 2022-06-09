@@ -7,6 +7,8 @@ import com.kyu0.foogether.support.MemberRole;
 
 import static com.kyu0.foogether.utility.RegExpPattern.*;
 
+import java.util.List;
+
 import lombok.*;
 
 /**
@@ -62,6 +64,9 @@ public class Member {
     
     @Column(name="use")
     private Boolean isUse;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "member")
+    private List<Restaurant> restaurants;
     
     @Builder
     public Member (String id, String password, String name, MemberRole role, String email,
