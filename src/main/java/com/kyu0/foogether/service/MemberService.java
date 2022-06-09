@@ -9,18 +9,15 @@ import com.kyu0.foogether.dao.MemberRepository;
 import com.kyu0.foogether.dto.member.*;
 import com.kyu0.foogether.model.Member;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 @Service
 public class MemberService implements UserDetailsService {
-    
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -49,6 +46,12 @@ public class MemberService implements UserDetailsService {
 
     public Optional<Member> findById(String id) {
         return memberRepository.findById(id);
+    }
+
+    public boolean delete(String id) {
+        memberRepository.deleteById(id);
+
+        return true;
     }
 
     /**
