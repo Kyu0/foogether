@@ -2,10 +2,6 @@ package com.kyu0.foogether;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.net.http.HttpHeaders;
-import java.util.Map;
-
-import com.kyu0.foogether.dto.member.MemberDto;
 import com.kyu0.foogether.model.Member;
 import com.kyu0.foogether.utility.api.ApiResult;
 
@@ -17,8 +13,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 
 @SpringBootTest
 @WebAppConfiguration
