@@ -49,7 +49,7 @@ public class UserRegisterTest {
 
         ResponseEntity<ApiResult<Member>> result = getResult(testUser);
         
-        assertEquals(false, result.getBody().isSuccess());
+        assertEquals(true, result.getBody().isSuccess());
     }
 
     @DisplayName("성공, 비밀번호에 특수문자 입력")
