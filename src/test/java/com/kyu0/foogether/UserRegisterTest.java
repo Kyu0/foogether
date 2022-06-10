@@ -2,9 +2,6 @@ package com.kyu0.foogether;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 import com.kyu0.foogether.model.Member;
 import com.kyu0.foogether.support.MemberRole;
 import com.kyu0.foogether.utility.api.*;

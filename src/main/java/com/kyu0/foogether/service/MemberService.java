@@ -24,9 +24,9 @@ public class MemberService implements UserDetailsService {
 
     @Transactional
     public Member save(Member request) {
-        // if (memberRepository.existsById(request.getId())) {
-        //     throw new EntityExistsException("이미 존재하는 로그인 ID 입니다.");
-        // }
+        if (memberRepository.existsById(request.getId())) {
+            throw new EntityExistsException("이미 존재하는 로그인 ID 입니다.");
+        }
         
         return memberRepository.save(request);
     }
