@@ -24,8 +24,8 @@ import lombok.*;
  */
 @NoArgsConstructor
 @Getter
-@Entity
 @ToString
+@Entity
 public class Member {
 
     @Id

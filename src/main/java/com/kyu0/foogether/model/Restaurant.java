@@ -1,5 +1,7 @@
 package com.kyu0.foogether.model;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 import lombok.*;
@@ -18,9 +20,9 @@ import lombok.*;
  * @param isUse 사용 여부
  */
 @NoArgsConstructor
-@Entity
 @Getter
 @ToString
+@Entity
 public class Restaurant {
     
     @Id
@@ -52,6 +54,9 @@ public class Restaurant {
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
+    private List<Food> foods;
     
     @Builder
     public Restaurant(Integer id, String name, Integer type, Integer businessNumber, String address
