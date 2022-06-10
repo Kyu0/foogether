@@ -31,6 +31,7 @@ public class MemberService implements UserDetailsService {
         return memberRepository.save(request);
     }
 
+    @Transactional(readOnly = true)
     public Optional<Member> findById(String id) {
         return memberRepository.findById(id);
     }

@@ -7,6 +7,7 @@ import com.kyu0.foogether.model.Restaurant;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class RestaurantService {
@@ -18,10 +19,12 @@ public class RestaurantService {
         this.restaurantRepository = restaurantRepository;
     }
 
+    @Transactional
     public Restaurant save(Restaurant restaurant) {
         return restaurantRepository.save(restaurant);
     }
 
+    @Transactional(readOnly = true)
     public Optional<Restaurant> findById(Integer id) {
         return restaurantRepository.findById(id);
     }
