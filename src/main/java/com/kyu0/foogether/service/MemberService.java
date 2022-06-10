@@ -4,43 +4,31 @@ import java.util.Optional;
 
 import javax.persistence.EntityExistsException;
 
-import com.kyu0.foogether.config.web.WebSecurityConfig;
 import com.kyu0.foogether.dao.MemberRepository;
 import com.kyu0.foogether.dto.member.*;
 import com.kyu0.foogether.model.Member;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.*;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class MemberService implements UserDetailsService {
     private MemberRepository memberRepository;
-    private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
-        this.passwordEncoder = WebSecurityConfig.getPasswordEncoder();
     }
 
     @Transactional
-    public Member save(MemberDto memberDto) {
-        setEncodedPassword(memberDto);
-        memberDto.setIsUse(true);
-
-        if (memberRepository.existsById(memberDto.getId())) {
-            throw new EntityExistsException("이미 존재하는 로그인 ID 입니다.");
-        }
+    public Member save(Member request) {
+        // if (memberRepository.existsById(request.getId())) {
+        //     throw new EntityExistsException("이미 존재하는 로그인 ID 입니다.");
+        // }
         
-        return memberRepository.save(memberDto.toEntity());
-    }
-
-    private void setEncodedPassword(MemberDto memberDto) {
-        String encodedPassword = passwordEncoder.encode(memberDto.getPassword());
-        memberDto.setEncodedPassword(encodedPassword);
+        return memberRepository.save(request);
     }
 
     public Optional<Member> findById(String id) {

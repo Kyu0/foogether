@@ -1,19 +1,31 @@
 package com.kyu0.foogether.controller;
 
+import java.time.LocalDate;
 import java.util.NoSuchElementException;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import javax.validation.constraints.Pattern;
 
-import com.kyu0.foogether.dto.member.MemberDto;
+import com.kyu0.foogether.config.web.WebSecurityConfig;
+import com.kyu0.foogether.model.Member;
 import com.kyu0.foogether.service.MemberService;
+import com.kyu0.foogether.support.MemberRole;
 import com.kyu0.foogether.utility.api.*;
+
+import static com.kyu0.foogether.utility.RegExpPattern.*;
 
 import org.slf4j.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 
 @RestController
@@ -21,17 +33,22 @@ public class MemberApiController {
     private static final Logger logger = LoggerFactory.getLogger(MemberApiController.class);
 
     private MemberService memberService;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public MemberApiController (MemberService memberService) {
         this.memberService = memberService;
+        this.passwordEncoder = WebSecurityConfig.getPasswordEncoder();
     }
 
     @PostMapping("/api/v1/member")
-    public ApiResult<?> save(@Valid @RequestBody MemberDto memberDto) {
-        logger.info("received params : {}", memberDto);
-    
-        return ApiUtils.success(memberService.save(memberDto));
+    public ApiResult<?> save(@Valid @RequestBody MemberSaveRequest request) {
+        logger.info("received params : {}", request);
+
+        request.password = passwordEncoder.encode(request.password);
+        request.isUse = true;
+
+        return ApiUtils.success(memberService.save(request.toEntity()));
     }
 
     @GetMapping("/api/v1/member/{id}")
@@ -69,5 +86,49 @@ public class MemberApiController {
     public void logout(HttpSession session) {
         // TODO : 로그아웃 로직 추가
     }
+
+    // DTO 선언
     
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @ToString
+    public static class MemberSaveRequest {
+        private String id;
+
+        @Pattern(regexp = PASSWORD_PATTERN, message = "비밀번호는 8자 이상, 32자 이하, 영어 + 숫자 조합으로 입력해주세요.")
+        private String password;
+        private String name;
+        private MemberRole role;
+        private String email;
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
+        private LocalDate birthday;
+        private String phoneNumber;
+        private Boolean isUse;
+    
+        @Builder
+        public MemberSaveRequest(String id, String password, String name, MemberRole role, String email, LocalDate birthday, String phoneNumber) {
+            this.id = id;
+            this.password = password;
+            this.name = name;
+            this.role = role;
+            this.email = email;
+            this.birthday = birthday;
+            this.phoneNumber = phoneNumber;
+            this.isUse = true;
+        }
+    
+        public @Valid Member toEntity() {
+            return Member.builder()
+                        .id(this.id)
+                        .password(this.password)
+                        .name(this.name)
+                        .role(this.role)
+                        .email(this.email)
+                        .birthday(this.birthday.toString())
+                        .phoneNumber(this.phoneNumber)
+                        .isUse(this.isUse)
+                    .build();
+        }
+    }
 }
