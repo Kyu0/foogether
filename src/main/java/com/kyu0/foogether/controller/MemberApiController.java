@@ -41,8 +41,7 @@ public class MemberApiController {
     public ApiResult<?> save(@Valid @RequestBody MemberSaveRequest request) {
         logger.info("received params : {}", request);
 
-        request.password = passwordEncoder.encode(request.password);
-        request.isUse = true;
+        request.password = passwordEncoder.encode(request.getPassword());
 
         return ApiUtils.success(memberService.save(request.toEntity()));
     }

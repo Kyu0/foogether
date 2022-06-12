@@ -59,7 +59,7 @@ public class Restaurant {
     private List<Food> foods;
     
     @Builder
-    public Restaurant(Integer id, String name, Integer type, Integer businessNumber, String address
+    public Restaurant(Integer id, String name, Integer type, Integer businessNumber, String address, String description
                     , Integer postNumber, Member member, Boolean isUse) {
         
         this.id = id;
@@ -67,6 +67,7 @@ public class Restaurant {
         this.type = type;
         this.businessNumber = businessNumber;
         this.address = address;
+        this.description = description;
         this.postNumber = postNumber;
         this.member = member;
         this.isUse = isUse;

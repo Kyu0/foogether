@@ -7,6 +7,7 @@ import javax.persistence.EntityExistsException;
 import com.kyu0.foogether.dao.MemberRepository;
 import com.kyu0.foogether.dto.member.*;
 import com.kyu0.foogether.model.Member;
+import com.kyu0.foogether.support.MemberRole;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.*;
@@ -36,6 +37,14 @@ public class MemberService implements UserDetailsService {
         return memberRepository.findById(id);
     }
 
+    @Transactional(readOnly = true)
+    public Optional<Member> findOwnerById(String id) {
+        return memberRepository.findById(id)
+                        .filter(member -> member.getRole().equals(MemberRole.OWNER));
+
+    }
+
+    @Transactional
     public boolean delete(String id) {
         memberRepository.deleteById(id);
 

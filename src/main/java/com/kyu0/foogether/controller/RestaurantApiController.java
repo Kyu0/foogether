@@ -1,30 +1,82 @@
 package com.kyu0.foogether.controller;
 
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
+import com.kyu0.foogether.model.Member;
 import com.kyu0.foogether.model.Restaurant;
+import com.kyu0.foogether.service.MemberService;
 import com.kyu0.foogether.service.RestaurantService;
+import com.kyu0.foogether.utility.api.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import lombok.*;
 
 @RestController
 public class RestaurantApiController {
     
     private RestaurantService restaurantService;
+    private MemberService memberService;
 
     @Autowired
-    public RestaurantApiController(RestaurantService restaurantService) {
+    public RestaurantApiController(RestaurantService restaurantService, MemberService memberService) {
         this.restaurantService = restaurantService;
+        this.memberService = memberService;
     }
 
     @PostMapping("/api/v1/restaurant")
-    public Restaurant save(Restaurant restaurant) {
-        return restaurantService.save(restaurant);
+    public ApiResult<?> save(RestauRantSaveRequest request) {
+        request.setMember(memberService.findOwnerById(request.getMemberId()).orElseThrow(() -> new NoSuchElementException("해당 아이디를 가진 사장님이 없습니다.")));
+        
+        return ApiUtils.success(restaurantService.save(request.toEntity()));
     }
 
     @GetMapping("/api/v1/restaurant/{id}")
-    public Optional<Restaurant> findById(@PathVariable(name = "id") Integer id) {
-        return restaurantService.findById(id);
+    public ApiResult<?> findById(@PathVariable(name = "id") Integer id) {
+        return ApiUtils.success(restaurantService.findById(id)
+                                    .orElseThrow(() -> new NoSuchElementException("해당 ID를 가진 가게를 찾을 수 없습니다."))
+                               );
+    }
+
+    // DTO 선언
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @ToString
+    public static class RestauRantSaveRequest {
+        private String name;
+        private Integer type;
+        private Integer businessNumber;
+        private String address;
+        private Integer postNumber;
+        private String description;
+        private Boolean isUse = true;
+        private String memberId;
+        private Member member;
+
+        @Builder
+        public RestauRantSaveRequest(String name, Integer type, Integer businessNumber, String address, Integer postNumber, String description, String memberId) {
+            this.name = name;
+            this.type = type;
+            this.businessNumber = businessNumber;
+            this.address = address;
+            this.postNumber = postNumber;
+            this.description = description;
+            this.memberId = memberId;
+        }
+
+        public Restaurant toEntity() {
+            return Restaurant.builder()
+                        .name(name)
+                        .type(type)
+                        .businessNumber(businessNumber)
+                        .address(address)
+                        .postNumber(postNumber)
+                        .description(description)
+                        .member(member)
+                    .build();
+        }
     }
 }
