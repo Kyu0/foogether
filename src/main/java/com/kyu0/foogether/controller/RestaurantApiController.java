@@ -39,6 +39,11 @@ public class RestaurantApiController {
                                );
     }
 
+    @GetMapping("/api/v1/restaurant/foods/{restaurantId}")
+    public ApiResult<?> findFoods(@PathVariable(name = "restaurantId") Integer restaurantId) {
+        return ApiUtils.success(restaurantService.findFoods(restaurantId));
+    }
+
     // DTO 선언
 
     @Getter

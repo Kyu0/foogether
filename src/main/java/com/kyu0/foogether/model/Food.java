@@ -1,16 +1,8 @@
 package com.kyu0.foogether.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 /**
  * 
@@ -45,4 +37,14 @@ public class Food {
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
+
+    @Builder
+    public Food(Integer id, String name, Integer price, String description, boolean isSoldout, Restaurant restaurant) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.description = description;
+        this.isSoldout = isSoldout;
+        this.restaurant = restaurant;
+    }
 }
