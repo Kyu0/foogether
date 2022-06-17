@@ -6,6 +6,7 @@ import com.kyu0.foogether.model.Member;
 import com.kyu0.foogether.model.Restaurant;
 import com.kyu0.foogether.service.MemberService;
 import com.kyu0.foogether.service.RestaurantService;
+import com.kyu0.foogether.support.RestaurantType;
 import com.kyu0.foogether.utility.api.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,17 +53,17 @@ public class RestaurantApiController {
     @ToString
     public static class RestauRantSaveRequest {
         private String name;
-        private Integer type;
-        private Integer businessNumber;
+        private RestaurantType type;
+        private String businessNumber;
         private String address;
-        private Integer postNumber;
+        private String postNumber;
         private String description;
         private Boolean isUse = true;
         private String memberId;
         private Member member;
 
         @Builder
-        public RestauRantSaveRequest(String name, Integer type, Integer businessNumber, String address, Integer postNumber, String description, String memberId) {
+        public RestauRantSaveRequest(String name, RestaurantType type, String businessNumber, String address, String postNumber, String description, String memberId) {
             this.name = name;
             this.type = type;
             this.businessNumber = businessNumber;
@@ -70,6 +71,7 @@ public class RestaurantApiController {
             this.postNumber = postNumber;
             this.description = description;
             this.memberId = memberId;
+            this.isUse = true;
         }
 
         public Restaurant toEntity() {

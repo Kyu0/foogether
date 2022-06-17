@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.kyu0.foogether.support.RestaurantType;
+
 import lombok.*;
 
 /**
@@ -34,17 +36,18 @@ public class Restaurant {
     @Column(name = "name")
     private String name;
     
+    @Enumerated(EnumType.STRING)
     @Column(name = "type")
-    private Integer type;
+    private RestaurantType type;
     
     @Column(name = "business_number")
-    private Integer businessNumber;
+    private String businessNumber;
     
     @Column(name = "address")
     private String address;
     
     @Column(name = "post_number")
-    private Integer postNumber;
+    private String postNumber;
 
     @Column(name = "description")
     private String description;
@@ -60,8 +63,8 @@ public class Restaurant {
     private List<Food> foods = new ArrayList<>();
     
     @Builder
-    public Restaurant(Integer id, String name, Integer type, Integer businessNumber, String address, String description
-                    , Integer postNumber, Member member, Boolean isUse) {
+    public Restaurant(Integer id, String name, RestaurantType type, String businessNumber, String address, String description
+                    , String postNumber, Member member, Boolean isUse) {
         
         this.id = id;
         this.name = name;
