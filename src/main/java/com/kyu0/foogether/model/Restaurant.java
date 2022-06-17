@@ -1,5 +1,6 @@
 package com.kyu0.foogether.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -55,8 +56,8 @@ public class Restaurant {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
-    private List<Food> foods;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant", orphanRemoval = true)
+    private List<Food> foods = new ArrayList<>();
     
     @Builder
     public Restaurant(Integer id, String name, Integer type, Integer businessNumber, String address, String description
@@ -71,5 +72,12 @@ public class Restaurant {
         this.postNumber = postNumber;
         this.member = member;
         this.isUse = isUse;
+    }
+
+    public void addFood (Food food) {
+        this.foods.add(food);
+        if (food.getRestaurant() != this) {
+            food.setRestaurant(this);
+        }
     }
 }

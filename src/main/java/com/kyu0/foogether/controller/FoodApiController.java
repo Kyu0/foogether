@@ -56,14 +56,17 @@ public class FoodApiController {
         }
 
         public Food toEntity() {
-            return Food.builder()
+            Food entity = Food.builder()
                         .id(id)
                         .name(name)
                         .price(price)
                         .description(description)
                         .isSoldout(isSoldout)
-                        .restaurant(restaurant)
                     .build();
+            entity.setRestaurant(this.restaurant);
+            restaurant.getFoods().add(entity);
+            
+            return entity;
         }
     } 
 }

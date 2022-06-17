@@ -14,6 +14,7 @@ import lombok.*;
  */
 @NoArgsConstructor
 @Getter
+@Setter
 @ToString
 @Entity
 public class Food {
@@ -46,5 +47,14 @@ public class Food {
         this.description = description;
         this.isSoldout = isSoldout;
         this.restaurant = restaurant;
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        if (this.restaurant != null) {
+            this.restaurant.getFoods().remove(this);
+        }
+
+        this.restaurant = restaurant;
+        restaurant.getFoods().add(this);
     }
 }
