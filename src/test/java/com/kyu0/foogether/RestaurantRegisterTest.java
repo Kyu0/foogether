@@ -2,10 +2,8 @@ package com.kyu0.foogether;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.kyu0.foogether.controller.MemberApiController;
 import com.kyu0.foogether.controller.RestaurantApiController;
 import com.kyu0.foogether.controller.RestaurantApiController.RestauRantSaveRequest;
-import com.kyu0.foogether.model.Restaurant;
 import com.kyu0.foogether.support.RestaurantType;
 import com.kyu0.foogether.utility.api.ApiResult;
 
