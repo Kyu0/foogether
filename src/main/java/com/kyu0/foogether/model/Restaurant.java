@@ -29,8 +29,7 @@ import lombok.*;
 @Entity
 public class Restaurant {
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id @GeneratedValue
     @Column(name = "id")
     private Integer id;
     
