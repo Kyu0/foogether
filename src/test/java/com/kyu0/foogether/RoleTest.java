@@ -16,7 +16,7 @@ public class RoleTest {
     private boolean isValidateString(String str) {
         return Arrays.stream(MemberRole.values())
               .map(role -> role.getAuthority())
-              .anyMatch(role -> role.equals(str.trim()));
+              .anyMatch(role -> role.equals(str.strip()));
     }
     
     @DisplayName("일반적인 상황 - 1, 올바른 문자열을 입력했을 때")
