@@ -16,7 +16,6 @@ import com.kyu0.foogether.utility.api.*;
 import static com.kyu0.foogether.utility.RegExpPattern.*;
 
 import org.slf4j.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -28,10 +27,9 @@ import lombok.*;
 public class MemberApiController {
     private static final Logger logger = LoggerFactory.getLogger(MemberApiController.class);
 
-    private MemberService memberService;
-    private PasswordEncoder passwordEncoder;
+    private final MemberService memberService;
+    private final PasswordEncoder passwordEncoder;
 
-    @Autowired
     public MemberApiController (MemberService memberService) {
         this.memberService = memberService;
         this.passwordEncoder = WebSecurityConfig.getPasswordEncoder();
@@ -99,7 +97,6 @@ public class MemberApiController {
         @DateTimeFormat(pattern = "yyyy-MM-dd")
         private LocalDate birthday;
         private String phoneNumber;
-        private Boolean isUse;
     
         @Builder
         public MemberSaveRequest(String id, String password, String name, MemberRole role, String email, LocalDate birthday, String phoneNumber) {
@@ -110,7 +107,6 @@ public class MemberApiController {
             this.email = email;
             this.birthday = birthday;
             this.phoneNumber = phoneNumber;
-            this.isUse = true;
         }
     
         public @Valid Member toEntity() {
@@ -122,7 +118,7 @@ public class MemberApiController {
                         .email(this.email)
                         .birthday(this.birthday.toString())
                         .phoneNumber(this.phoneNumber)
-                        .isUse(this.isUse)
+                        .isUse(true)
                     .build();
         }
     }

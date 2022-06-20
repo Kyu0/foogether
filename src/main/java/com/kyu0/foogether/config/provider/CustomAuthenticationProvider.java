@@ -2,7 +2,6 @@ package com.kyu0.foogether.config.provider;
 
 import com.kyu0.foogether.service.MemberService;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.*;
 import org.springframework.security.core.userdetails.*;
@@ -10,10 +9,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
-    private MemberService userService;
-    private PasswordEncoder passwordEncoder;
+    private final MemberService userService;
+    private final PasswordEncoder passwordEncoder;
 
-    @Autowired
     public CustomAuthenticationProvider (MemberService userService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;

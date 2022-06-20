@@ -9,7 +9,6 @@ import com.kyu0.foogether.service.RestaurantService;
 import com.kyu0.foogether.support.RestaurantType;
 import com.kyu0.foogether.utility.api.*;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import lombok.*;
@@ -17,10 +16,9 @@ import lombok.*;
 @RestController
 public class RestaurantApiController {
     
-    private RestaurantService restaurantService;
-    private MemberService memberService;
+    private final RestaurantService restaurantService;
+    private final MemberService memberService;
 
-    @Autowired
     public RestaurantApiController(RestaurantService restaurantService, MemberService memberService) {
         this.restaurantService = restaurantService;
         this.memberService = memberService;

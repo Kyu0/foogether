@@ -8,7 +8,6 @@ import com.kyu0.foogether.service.FoodService;
 import com.kyu0.foogether.service.RestaurantService;
 import com.kyu0.foogether.utility.api.*;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import lombok.*;
@@ -16,10 +15,9 @@ import lombok.*;
 @RestController
 public class FoodApiController {
 
-    private FoodService foodService;
-    private RestaurantService restaurantService;
+    private final FoodService foodService;
+    private final RestaurantService restaurantService;
 
-    @Autowired
     public FoodApiController(FoodService foodService, RestaurantService restaurantService) {
         this.foodService = foodService;
         this.restaurantService = restaurantService;
