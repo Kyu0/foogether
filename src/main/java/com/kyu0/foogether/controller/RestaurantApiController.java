@@ -2,6 +2,8 @@ package com.kyu0.foogether.controller;
 
 import java.util.NoSuchElementException;
 
+import javax.validation.Valid;
+
 import com.kyu0.foogether.model.Member;
 import com.kyu0.foogether.model.Restaurant;
 import com.kyu0.foogether.service.MemberService;
@@ -72,7 +74,7 @@ public class RestaurantApiController {
             this.isUse = true;
         }
 
-        public Restaurant toEntity() {
+        public @Valid Restaurant toEntity() {
             return Restaurant.builder()
                         .name(name)
                         .type(type)

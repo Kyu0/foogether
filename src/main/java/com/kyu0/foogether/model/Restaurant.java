@@ -1,11 +1,12 @@
 package com.kyu0.foogether.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 import com.kyu0.foogether.support.RestaurantType;
+import static com.kyu0.foogether.utility.RegExpPattern.*;
 
 import lombok.*;
 
@@ -33,6 +34,7 @@ public class Restaurant {
     @Column(name = "id")
     private Integer id;
     
+    @Size(min = 2, max = 32, message = "가게 이름은 2자 이상, 32자 이하로 입력해주세요.")
     @Column(name = "name")
     private String name;
     
@@ -40,15 +42,18 @@ public class Restaurant {
     @Column(name = "type")
     private RestaurantType type;
     
+    @Pattern(regexp = BUSINESS_NUMBER_PATTERN, message = "사업자 등록 번호의 형식이 맞지 않습니다.")
     @Column(name = "business_number")
     private String businessNumber;
     
     @Column(name = "address")
     private String address;
     
+    @Pattern(regexp = POST_NUMBER_PATTERN, message = "우편 번호의 형식이 맞지 않습니다.")
     @Column(name = "post_number")
     private String postNumber;
 
+    @Size(max = 1000, message = "가게의 설명글은 1,000자 이하로 입력해주세요.")
     @Column(name = "description")
     private String description;
     

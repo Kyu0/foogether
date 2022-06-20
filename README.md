@@ -33,3 +33,14 @@ Spring Boot 기반 배달 웹 어플리케이션
  - [phone_number] : '-'(하이픈)을 포함한 번호
  - [role] : 'OWNER', 'CUSTOMER', 'ADMIN', 'RIDER' 문자열만 허용
  - [use]
+
+### Restaurant
+ - [id]
+ - [name]
+ - [type]
+ - [business_number] : 000-00-0000 (숫자, 하이픈으로 구성됨)
+ - [address]
+ - [post_number] : 숫자 5자리
+ - [description]
+ - [use]
+ - [member_id] : FK(Member 테이블의 id 컬럼 참조)
