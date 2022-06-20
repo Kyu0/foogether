@@ -51,6 +51,7 @@ public class RestaurantApiController {
 
     @Getter
     @Setter
+    @ToString(exclude = "member")
     @NoArgsConstructor
     public static class RestaurantSaveRequest {
         private String name;

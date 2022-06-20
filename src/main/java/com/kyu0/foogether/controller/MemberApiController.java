@@ -84,7 +84,7 @@ public class MemberApiController {
     @Getter
     @Setter
     @NoArgsConstructor
-    @ToString
+    @ToString(exclude = "password")
     public static class MemberSaveRequest {
         private String id;
 
