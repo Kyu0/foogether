@@ -14,7 +14,9 @@ import com.kyu0.foogether.utility.api.*;
 import org.springframework.web.bind.annotation.*;
 
 import lombok.*;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2
 @RestController
 public class RestaurantApiController {
     
@@ -27,17 +29,17 @@ public class RestaurantApiController {
     }
 
     @PostMapping("/api/v1/restaurant")
-    public ApiResult<?> save(RestauRantSaveRequest request) {
+    public ApiResult<?> save(@RequestBody RestaurantSaveRequest request) {
         request.setMember(memberService.findOwnerById(request.getMemberId()).orElseThrow(() -> new NoSuchElementException("해당 아이디를 가진 사장님이 없습니다.")));
         
-        return ApiUtils.success(restaurantService.save(request.toEntity()));
+        return ApiUtils.success(new RestaurantResponse(restaurantService.save(request.toEntity())));
     }
 
     @GetMapping("/api/v1/restaurant/{id}")
     public ApiResult<?> findById(@PathVariable(name = "id") Integer id) {
-        return ApiUtils.success(restaurantService.findById(id)
+        return ApiUtils.success(new RestaurantResponse(restaurantService.findById(id)
                                     .orElseThrow(() -> new NoSuchElementException("해당 ID를 가진 가게를 찾을 수 없습니다."))
-                               );
+                               ));
     }
 
     @GetMapping("/api/v1/restaurant/foods/{restaurantId}")
@@ -50,20 +52,18 @@ public class RestaurantApiController {
     @Getter
     @Setter
     @NoArgsConstructor
-    @ToString
-    public static class RestauRantSaveRequest {
+    public static class RestaurantSaveRequest {
         private String name;
         private RestaurantType type;
         private String businessNumber;
         private String address;
         private String postNumber;
         private String description;
-        private Boolean isUse = true;
         private String memberId;
         private Member member;
 
         @Builder
-        public RestauRantSaveRequest(String name, RestaurantType type, String businessNumber, String address, String postNumber, String description, String memberId) {
+        public RestaurantSaveRequest(String name, RestaurantType type, String businessNumber, String address, String postNumber, String description, String memberId) {
             this.name = name;
             this.type = type;
             this.businessNumber = businessNumber;
@@ -71,7 +71,6 @@ public class RestaurantApiController {
             this.postNumber = postNumber;
             this.description = description;
             this.memberId = memberId;
-            this.isUse = true;
         }
 
         public @Valid Restaurant toEntity() {
@@ -82,8 +81,36 @@ public class RestaurantApiController {
                         .address(address)
                         .postNumber(postNumber)
                         .description(description)
+                        .isUse(true)
                         .member(member)
                     .build();
+        }
+    }
+
+    @Getter
+    @NoArgsConstructor
+    @ToString
+    public static class RestaurantResponse {
+        private Integer id;
+        private String name;
+        private RestaurantType type;
+        private String businessNumber;
+        private String address;
+        private String postNumber;
+        private String description;
+        private Boolean isUse;
+        private String memberId;
+
+        public RestaurantResponse(Restaurant entity) {
+            this.id = entity.getId();
+            this.name = entity.getName();
+            this.type = entity.getType();
+            this.businessNumber = entity.getBusinessNumber();
+            this.address = entity.getAddress();
+            this.postNumber = entity.getPostNumber();
+            this.description = entity.getDescription();
+            this.isUse = entity.getIsUse();
+            this.memberId = entity.getMember().getId();
         }
     }
 }

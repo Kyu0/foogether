@@ -25,7 +25,6 @@ import lombok.*;
  */
 @NoArgsConstructor
 @Getter
-@ToString
 @Entity
 public class Restaurant {
     
@@ -34,32 +33,33 @@ public class Restaurant {
     private Integer id;
     
     @Size(min = 2, max = 32, message = "가게 이름은 2자 이상, 32자 이하로 입력해주세요.")
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
     
+    @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "type")
+    @Column(name = "type", nullable = false)
     private RestaurantType type;
     
     @Pattern(regexp = BUSINESS_NUMBER_PATTERN, message = "사업자 등록 번호의 형식이 맞지 않습니다.")
-    @Column(name = "business_number")
+    @Column(name = "business_number", nullable = false)
     private String businessNumber;
     
-    @Column(name = "address")
+    @Column(name = "address", nullable = false)
     private String address;
     
     @Pattern(regexp = POST_NUMBER_PATTERN, message = "우편 번호의 형식이 맞지 않습니다.")
-    @Column(name = "post_number")
+    @Column(name = "post_number", nullable = false)
     private String postNumber;
 
     @Size(max = 1000, message = "가게의 설명글은 1,000자 이하로 입력해주세요.")
     @Column(name = "description")
     private String description;
     
-    @Column(name = "use")
+    @Column(name = "use", nullable = false)
     private Boolean isUse;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "member_id")
     private Member member;
 
@@ -86,5 +86,12 @@ public class Restaurant {
         if (food.getRestaurant() != this) {
             food.setRestaurant(this);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Restaurant [address=" + address + ", businessNumber=" + businessNumber + ", description=" + description
+                + ", id=" + id + ", isUse=" + isUse + ", memberId=" + member.getId() + ", name=" + name
+                + ", postNumber=" + postNumber + ", type=" + type + "]";
     }
 }

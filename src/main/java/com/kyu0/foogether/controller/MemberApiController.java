@@ -122,6 +122,7 @@ public class MemberApiController {
     }
 
     @Getter
+    @NoArgsConstructor
     @ToString
     public static class MemberResponse {
         private String id;

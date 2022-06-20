@@ -49,7 +49,7 @@ public class UserRegisterTest {
     //         Member testUser = Member.builder()
     //                                 .id(id)
     //                                 .password(password)
-    //                                 .birthday(year[i % 3] + "-" + month[i % 9] + "-" + day[i % 5])
+    //                                 .birthday(new SimpleDateFormat("yyyy-MM-dd").parse(year[i % 3] + "-" + month[i % 9] + "-" + day[i % 5]))
     //                                 .email(email)
     //                                 .name(familyName[i % 6] + givenName[i % 10])
     //                                 .phoneNumber(phoneNumber)

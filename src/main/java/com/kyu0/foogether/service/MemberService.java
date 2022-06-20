@@ -38,7 +38,7 @@ public class MemberService implements UserDetailsService {
     @Transactional(readOnly = true)
     public Optional<Member> findOwnerById(String id) {
         return memberRepository.findById(id)
-                        .filter(member -> member.getRole().equals(MemberRole.OWNER));
+                               .filter(member -> member.getRole().equals(MemberRole.OWNER));
 
     }
 
