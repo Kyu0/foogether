@@ -9,16 +9,14 @@ import com.kyu0.foogether.dto.member.*;
 import com.kyu0.foogether.model.Member;
 import com.kyu0.foogether.support.MemberRole;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class MemberService implements UserDetailsService {
-    private MemberRepository memberRepository;
+    private final MemberRepository memberRepository;
 
-    @Autowired
     public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }

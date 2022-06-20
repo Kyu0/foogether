@@ -1,6 +1,6 @@
 package com.kyu0.foogether.controller;
 
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.NoSuchElementException;
 
 import javax.servlet.http.HttpSession;
@@ -16,7 +16,6 @@ import com.kyu0.foogether.utility.api.*;
 import static com.kyu0.foogether.utility.RegExpPattern.*;
 
 import org.slf4j.*;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,14 +40,14 @@ public class MemberApiController {
 
         request.password = passwordEncoder.encode(request.getPassword());
 
-        return ApiUtils.success(memberService.save(request.toEntity()));
+        return ApiUtils.success(new MemberResponse(memberService.save(request.toEntity())));
     }
 
     @GetMapping("/api/v1/member/{id}")
-    public ApiResult<?> findById(@RequestParam String id) {
-        return ApiUtils.success(memberService.findById(id)
+    public ApiResult<?> findById(@PathVariable String id) {
+        return ApiUtils.success(new MemberResponse(memberService.findById(id)
                                     .orElseThrow(() -> new NoSuchElementException("해당 ID를 가진 유저를 찾을 수 없습니다."))
-                                );
+                                ));
     }
 
     @PutMapping("/api/v1/member/password")
@@ -94,12 +93,11 @@ public class MemberApiController {
         private String name;
         private MemberRole role;
         private String email;
-        @DateTimeFormat(pattern = "yyyy-MM-dd")
-        private LocalDate birthday;
+        private Date birthday;
         private String phoneNumber;
     
         @Builder
-        public MemberSaveRequest(String id, String password, String name, MemberRole role, String email, LocalDate birthday, String phoneNumber) {
+        public MemberSaveRequest(String id, String password, String name, MemberRole role, String email, Date birthday, String phoneNumber) {
             this.id = id;
             this.password = password;
             this.name = name;
@@ -116,10 +114,30 @@ public class MemberApiController {
                         .name(this.name)
                         .role(this.role)
                         .email(this.email)
-                        .birthday(this.birthday.toString())
+                        .birthday(this.birthday)
                         .phoneNumber(this.phoneNumber)
                         .isUse(true)
                     .build();
+        }
+    }
+
+    @Getter
+    @ToString
+    public static class MemberResponse {
+        private String id;
+        private String name;
+        private MemberRole role;
+        private String email;
+        private Date birthday;
+        private String phoneNumber;
+
+        public MemberResponse(Member entity) {
+            this.id = entity.getId();
+            this.name = entity.getName();
+            this.role = entity.getRole();
+            this.email = entity.getEmail();
+            this.birthday = entity.getBirthday();
+            this.phoneNumber = entity.getPhoneNumber();
         }
     }
 }
