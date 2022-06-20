@@ -30,6 +30,33 @@ public class UserRegisterTest {
         return new HttpEntity<>(userDto, new HttpHeaders());
     }
 
+    // @Test
+    // void 테스트_데이터_생성() {
+    //     String password = "test123456";
+    //     String year[] = {"2001", "1998", "1975"};
+    //     String month[] = {"01", "03", "04", "05", "06", "07", "09", "10", "12"};
+    //     String day[] = {"03", "05", "13", "23", "26"};
+    //     String email = "efftar@naver.com";
+    //     String familyName[] = {"김", "김", "임", "안", "최", "성"};
+    //     String givenName[] = {"하나", "하늘", "영", "은지", "예지", "민혁", "현우", "상훈", "상권", "수아"};
+    //     String phoneNumber = "010-3398-5234";
+
+    //     for (int i = 0 ; i < 100 ; ++i) {
+    //         String id = "test" + i;
+    //         Member testUser = Member.builder()
+    //                                 .id(id)
+    //                                 .password(password)
+    //                                 .birthday(year[i % 3] + "-" + month[i % 9] + "-" + day[i % 5])
+    //                                 .email(email)
+    //                                 .name(familyName[i % 6] + givenName[i % 10])
+    //                                 .phoneNumber(phoneNumber)
+    //                                 .role(MemberRole.OWNER)
+    //                           .build();
+
+    //         getResult(testUser);
+    //     }
+    // }
+
     @DisplayName("성공, 일반적인 상황")
     @Test
     void 유효한_데이터_1() {
