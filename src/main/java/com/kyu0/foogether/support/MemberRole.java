@@ -1,7 +1,5 @@
 package com.kyu0.foogether.support;
 
-import java.util.Arrays;
-
 import org.springframework.security.core.GrantedAuthority;
 
 public enum MemberRole implements GrantedAuthority {
@@ -19,11 +17,5 @@ public enum MemberRole implements GrantedAuthority {
     @Override
     public String getAuthority() {
         return authority;
-    }
-
-    public static boolean isValidateString (String str) {
-        return Arrays.stream(MemberRole.values())
-                .map(role -> role.getAuthority())
-                .anyMatch(authority -> authority.equals(str.trim()));
     }
 }

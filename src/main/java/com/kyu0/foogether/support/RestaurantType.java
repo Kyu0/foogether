@@ -11,4 +11,8 @@ public enum RestaurantType {
     private RestaurantType(String name) {
         this.name = name;
     }
+
+    public String getName() {
+        return this.name;
+    }
 }

@@ -2,6 +2,8 @@ package com.kyu0.foogether;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.Arrays;
+
 import com.kyu0.foogether.support.MemberRole;
 
 import org.junit.jupiter.api.DisplayName;
@@ -10,6 +12,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 public class RoleTest {
+
+    private boolean isValidateString(String str) {
+        return Arrays.stream(MemberRole.values())
+              .map(role -> role.getAuthority())
+              .anyMatch(role -> role.equals(str.trim()));
+    }
     
     @DisplayName("일반적인 상황 - 1, 올바른 문자열을 입력했을 때")
     @Test
@@ -18,7 +26,7 @@ public class RoleTest {
         boolean expected = true;
 
         for (String testString : testStrings) {
-            boolean result = MemberRole.isValidateString(testString);
+            boolean result = isValidateString(testString);    
             assertEquals(expected, result);
         }
     }
@@ -29,7 +37,7 @@ public class RoleTest {
         String testString = "ROLE_CAT";
         boolean expected = false;
 
-        boolean result = MemberRole.isValidateString(testString);
+        boolean result = isValidateString(testString);
         assertEquals(expected, result);
     }
 
@@ -40,7 +48,7 @@ public class RoleTest {
         boolean[] expected = {true, true, false};
 
         for (int i = 0 ; i < testStrings.length ; ++i) {
-            boolean result = MemberRole.isValidateString(testStrings[i]);
+            boolean result = isValidateString(testStrings[i]);
             assertEquals(expected[i], result);
         }
     }
@@ -52,7 +60,7 @@ public class RoleTest {
         boolean expected = false;
 
         for (Object testArgument : testArguments) {
-            boolean result = MemberRole.isValidateString(testArgument.toString());
+            boolean result = isValidateString(testArgument.toString());
             assertEquals(expected, result);
         }
     }
