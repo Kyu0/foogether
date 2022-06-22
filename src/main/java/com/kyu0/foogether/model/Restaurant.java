@@ -1,14 +1,12 @@
 package com.kyu0.foogether.model;
 
-import java.util.*;
-
-import javax.persistence.*;
-import javax.validation.constraints.*;
-
 import com.kyu0.foogether.support.RestaurantType;
+import java.util.*;
+import javax.validation.constraints.Pattern;
+
+
 import static com.kyu0.foogether.utility.RegExpPattern.*;
 
-import lombok.*;
 
 /**
  * 
@@ -60,7 +58,7 @@ public class Restaurant {
     private Boolean isUse;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "member_id", nullable = false)
     private Member member;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant", orphanRemoval = true)

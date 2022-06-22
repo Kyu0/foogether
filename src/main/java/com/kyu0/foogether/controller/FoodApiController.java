@@ -37,7 +37,6 @@ public class FoodApiController {
     @Setter
     @ToString
     public static class FoodSaveRequest {
-        private Integer id;
         private String name;
         private Integer price;
         private String description;
@@ -45,8 +44,7 @@ public class FoodApiController {
         private Integer restaurantId;
         private Restaurant restaurant;
         
-        public FoodSaveRequest(Integer id, String name, Integer price, String description, Integer restaurantId) {
-            this.id = id;
+        public FoodSaveRequest(String name, Integer price, String description, Integer restaurantId) {
             this.name = name;
             this.price = price;
             this.description = description;
@@ -55,7 +53,6 @@ public class FoodApiController {
 
         public Food toEntity() {
             Food entity = Food.builder()
-                        .id(id)
                         .name(name)
                         .price(price)
                         .description(description)

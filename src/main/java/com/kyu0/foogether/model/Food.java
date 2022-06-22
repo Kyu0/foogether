@@ -1,8 +1,6 @@
 package com.kyu0.foogether.model;
 
-import javax.persistence.*;
 
-import lombok.*;
 
 /**
  * 
@@ -36,7 +34,7 @@ public class Food {
     private boolean isSoldout;
 
     @ManyToOne
-    @JoinColumn(name = "restaurant_id")
+    @JoinColumn(name = "restaurant_id", nullable = false)
     private Restaurant restaurant;
 
     @Builder
