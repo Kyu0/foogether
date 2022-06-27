@@ -2,8 +2,10 @@ package com.kyu0.foogether.model;
 
 import com.kyu0.foogether.support.RestaurantType;
 import java.util.*;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.*;
+import javax.persistence.*;
 
+import lombok.*;
 
 import static com.kyu0.foogether.utility.RegExpPattern.*;
 
@@ -21,6 +23,11 @@ import static com.kyu0.foogether.utility.RegExpPattern.*;
  * @param userId 사장 id
  * @param isUse 사용 여부
  */
+@NamedEntityGraphs({
+    @NamedEntityGraph(name = "Restaurant.withAll", attributeNodes = {@NamedAttributeNode("member"), @NamedAttributeNode("foods")})
+    , @NamedEntityGraph(name = "Restaurant.withMember", attributeNodes = {@NamedAttributeNode("member")})
+    , @NamedEntityGraph(name = "Restaurant.withFoods", attributeNodes = {@NamedAttributeNode("foods")})
+})
 @NoArgsConstructor
 @Getter
 @Entity
@@ -57,7 +64,7 @@ public class Restaurant {
     @Column(name = "use", nullable = false)
     private Boolean isUse;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "member_id", nullable = false)
     private Member member;
 

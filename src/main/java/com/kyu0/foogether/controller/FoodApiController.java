@@ -63,5 +63,23 @@ public class FoodApiController {
             
             return entity;
         }
-    } 
+    }
+
+    @NoArgsConstructor
+    @Getter
+    public static class FoodResponse {
+        private Integer id;
+        private String name;
+        private Integer price;
+        private String description;
+        private boolean isSoldout;
+        
+        public FoodResponse(Food entity) {
+            this.id = entity.getId();
+            this.name = entity.getName();
+            this.price = entity.getPrice();
+            this.description = entity.getDescription();
+            this.isSoldout = entity.isSoldout();
+        }
+    }
 }

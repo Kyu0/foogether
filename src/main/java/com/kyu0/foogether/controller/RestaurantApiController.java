@@ -1,9 +1,14 @@
 package com.kyu0.foogether.controller;
 
+import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import com.kyu0.foogether.controller.FoodApiController.FoodResponse;
+import com.kyu0.foogether.controller.MemberApiController.MemberResponse;
+import com.kyu0.foogether.model.Food;
 import com.kyu0.foogether.model.Member;
 import com.kyu0.foogether.model.Restaurant;
 import com.kyu0.foogether.service.MemberService;
@@ -32,7 +37,7 @@ public class RestaurantApiController {
     public ApiResult<?> save(@RequestBody RestaurantSaveRequest request) {
         request.setMember(memberService.findOwnerById(request.getMemberId()).orElseThrow(() -> new NoSuchElementException("해당 아이디를 가진 사장님이 없습니다.")));
         
-        return ApiUtils.success(new RestaurantResponse(restaurantService.save(request.toEntity())));
+        return ApiUtils.success(new RestaurantSaveResponse(restaurantService.save(request.toEntity())));
     }
 
     @GetMapping("/api/v1/restaurant/{id}")
@@ -91,7 +96,7 @@ public class RestaurantApiController {
     @Getter
     @NoArgsConstructor
     @ToString
-    public static class RestaurantResponse {
+    public static class RestaurantSaveResponse {
         private Integer id;
         private String name;
         private RestaurantType type;
@@ -102,7 +107,7 @@ public class RestaurantApiController {
         private Boolean isUse;
         private String memberId;
 
-        public RestaurantResponse(Restaurant entity) {
+        public RestaurantSaveResponse(Restaurant entity) {
             this.id = entity.getId();
             this.name = entity.getName();
             this.type = entity.getType();
@@ -112,6 +117,37 @@ public class RestaurantApiController {
             this.description = entity.getDescription();
             this.isUse = entity.getIsUse();
             this.memberId = entity.getMember().getId();
+        }
+    }
+
+    @Getter
+    @NoArgsConstructor
+    @ToString
+    public static class RestaurantResponse {
+        private Integer id;
+        private String name;
+        private RestaurantType type;
+        private String businessNumber;
+        private String address;
+        private String postNumber;
+        private String description;
+        private Boolean isUse;
+        private MemberResponse member;
+        private List<FoodResponse> foods;
+
+        public RestaurantResponse(Restaurant entity) {
+            this.id = entity.getId();
+            this.name = entity.getName();
+            this.type = entity.getType();
+            this.businessNumber = entity.getBusinessNumber();
+            this.address = entity.getAddress();
+            this.postNumber = entity.getPostNumber();
+            this.description = entity.getDescription();
+            this.isUse = entity.getIsUse();
+            this.member = new MemberResponse(entity.getMember());
+            this.foods = entity.getFoods().stream()
+                                .map(FoodResponse::new)
+                                .collect(Collectors.toList());
         }
     }
 }

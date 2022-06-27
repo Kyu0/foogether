@@ -2,8 +2,8 @@ package com.kyu0.foogether;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.kyu0.foogether.controller.RestaurantApiController.RestaurantResponse;
 import com.kyu0.foogether.controller.RestaurantApiController.RestaurantSaveRequest;
+import com.kyu0.foogether.controller.RestaurantApiController.RestaurantSaveResponse;
 import com.kyu0.foogether.support.RestaurantType;
 import com.kyu0.foogether.utility.api.ApiResult;
 
@@ -21,10 +21,10 @@ public class RestaurantRegisterTest {
     private final String API_ADDRESS = "http://localhost:8080/api/v1/restaurant";
     private TestRestTemplate restTemplate = new TestRestTemplate();
 
-    public ResponseEntity<ApiResult<RestaurantResponse>> getResult(RestaurantSaveRequest test) {
+    public ResponseEntity<ApiResult<RestaurantSaveResponse>> getResult(RestaurantSaveRequest test) {
         HttpEntity<RestaurantSaveRequest> entity = getHttpEntity(test);
 
-        return restTemplate.exchange(API_ADDRESS, HttpMethod.POST, entity, new ParameterizedTypeReference<ApiResult<RestaurantResponse>>(){});
+        return restTemplate.exchange(API_ADDRESS, HttpMethod.POST, entity, new ParameterizedTypeReference<ApiResult<RestaurantSaveResponse>>(){});
     }
 
     private HttpEntity<RestaurantSaveRequest> getHttpEntity(RestaurantSaveRequest test) {
@@ -44,7 +44,7 @@ public class RestaurantRegisterTest {
                                             .description("넘나 맛있는 집⭐️⭐️")
                                         .build();
 
-        ResponseEntity<ApiResult<RestaurantResponse>> result = getResult(request);
+        ResponseEntity<ApiResult<RestaurantSaveResponse>> result = getResult(request);
 
         assertEquals(true, result.getBody().isSuccess());
     }
@@ -62,7 +62,7 @@ public class RestaurantRegisterTest {
                                             .description("넘나 맛있는 집⭐️⭐️")
                                         .build();
 
-        ResponseEntity<ApiResult<RestaurantResponse>> result = getResult(request);
+        ResponseEntity<ApiResult<RestaurantSaveResponse>> result = getResult(request);
 
         assertEquals(false, result.getBody().isSuccess());
     }
@@ -80,7 +80,7 @@ public class RestaurantRegisterTest {
                                             .description("넘나 맛있는 집⭐️⭐️")
                                         .build();
 
-        ResponseEntity<ApiResult<RestaurantResponse>> result = getResult(request);
+        ResponseEntity<ApiResult<RestaurantSaveResponse>> result = getResult(request);
 
         assertEquals(false, result.getBody().isSuccess());
     }
@@ -98,7 +98,7 @@ public class RestaurantRegisterTest {
                                             .description("넘나 맛있는 집⭐️⭐️")
                                         .build();
 
-        ResponseEntity<ApiResult<RestaurantResponse>> result = getResult(request);
+        ResponseEntity<ApiResult<RestaurantSaveResponse>> result = getResult(request);
 
         assertEquals(false, result.getBody().isSuccess());
     }
@@ -116,7 +116,7 @@ public class RestaurantRegisterTest {
                                             .description("넘나 맛있는 집⭐️⭐️")
                                         .build();
 
-        ResponseEntity<ApiResult<RestaurantResponse>> result = getResult(request);
+        ResponseEntity<ApiResult<RestaurantSaveResponse>> result = getResult(request);
 
         assertEquals(false, result.getBody().isSuccess());
     }
@@ -134,7 +134,7 @@ public class RestaurantRegisterTest {
                                             .description("넘나 맛있는 집⭐️⭐️")
                                         .build();
 
-        ResponseEntity<ApiResult<RestaurantResponse>> result = getResult(request);
+        ResponseEntity<ApiResult<RestaurantSaveResponse>> result = getResult(request);
 
         assertEquals(false, result.getBody().isSuccess());
     }
@@ -152,7 +152,7 @@ public class RestaurantRegisterTest {
                                             .description("넘나 맛있는 집⭐️⭐️")
                                         .build();
 
-        ResponseEntity<ApiResult<RestaurantResponse>> result = getResult(request);
+        ResponseEntity<ApiResult<RestaurantSaveResponse>> result = getResult(request);
 
         assertEquals(false, result.getBody().isSuccess());
     }
@@ -170,7 +170,7 @@ public class RestaurantRegisterTest {
                                             .description("넘나 맛있는 집⭐️⭐️")
                                         .build();
 
-        ResponseEntity<ApiResult<RestaurantResponse>> result = getResult(request);
+        ResponseEntity<ApiResult<RestaurantSaveResponse>> result = getResult(request);
 
         assertEquals(false, result.getBody().isSuccess());
     }
@@ -188,7 +188,7 @@ public class RestaurantRegisterTest {
                                             .description("넘나 맛있는 집⭐️⭐️")
                                         .build();
 
-        ResponseEntity<ApiResult<RestaurantResponse>> result = getResult(request);
+        ResponseEntity<ApiResult<RestaurantSaveResponse>> result = getResult(request);
 
         assertEquals(false, result.getBody().isSuccess());
     }
