@@ -55,6 +55,7 @@ public class MemberService implements UserDetailsService {
      * @see com.kyu0.foogether.config.web.WebSecurityConfig
      * @see com.kyu0.foogether.config.provider.CustomAuthenticationProvider
      */
+    @Transactional(readOnly = true)
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return new MemberAuth(findById(username)

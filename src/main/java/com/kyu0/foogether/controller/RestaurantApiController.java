@@ -8,7 +8,6 @@ import javax.validation.Valid;
 
 import com.kyu0.foogether.controller.FoodApiController.FoodResponse;
 import com.kyu0.foogether.controller.MemberApiController.MemberResponse;
-import com.kyu0.foogether.model.Food;
 import com.kyu0.foogether.model.Member;
 import com.kyu0.foogether.model.Restaurant;
 import com.kyu0.foogether.service.MemberService;
