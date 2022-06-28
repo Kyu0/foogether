@@ -18,9 +18,7 @@ import com.kyu0.foogether.utility.api.*;
 import org.springframework.web.bind.annotation.*;
 
 import lombok.*;
-import lombok.extern.log4j.Log4j2;
 
-@Log4j2
 @RestController
 public class RestaurantApiController {
     
@@ -37,6 +35,13 @@ public class RestaurantApiController {
         request.setMember(memberService.findOwnerById(request.getMemberId()).orElseThrow(() -> new NoSuchElementException("해당 아이디를 가진 사장님이 없습니다.")));
         
         return ApiUtils.success(new RestaurantSaveResponse(restaurantService.save(request.toEntity())));
+    }
+
+    @GetMapping("/api/v1/restaurant")
+    public ApiResult<?> findAll() {
+        return ApiUtils.success(restaurantService.findAll().stream()
+                                    .map(RestaurantListResponse::new)
+                                    .collect(Collectors.toList()));
     }
 
     @GetMapping("/api/v1/restaurant/{id}")
@@ -147,6 +152,25 @@ public class RestaurantApiController {
             this.foods = entity.getFoods().stream()
                                 .map(FoodResponse::new)
                                 .collect(Collectors.toList());
+        }
+    }
+
+    @Getter
+    @NoArgsConstructor
+    @ToString
+    public static class RestaurantListResponse {
+        private Integer id;
+        private String name;
+        private RestaurantType type;
+        private String description;
+        private Boolean isUse;
+
+        public RestaurantListResponse(Restaurant entity) {
+            this.id = entity.getId();
+            this.name = entity.getName();
+            this.type = entity.getType();
+            this.description = entity.getDescription();
+            this.isUse = entity.getIsUse();
         }
     }
 }
