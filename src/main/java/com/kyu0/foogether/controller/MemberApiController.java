@@ -92,16 +92,18 @@ public class MemberApiController {
         private String password;
         private String name;
         private MemberRole role;
+        private String location;
         private String email;
         private Date birthday;
         private String phoneNumber;
     
         @Builder
-        public MemberSaveRequest(String id, String password, String name, MemberRole role, String email, Date birthday, String phoneNumber) {
+        public MemberSaveRequest(String id, String password, String name, MemberRole role, String location, String email, Date birthday, String phoneNumber) {
             this.id = id;
             this.password = password;
             this.name = name;
             this.role = role;
+            this.location = location;
             this.email = email;
             this.birthday = birthday;
             this.phoneNumber = phoneNumber;
@@ -113,6 +115,7 @@ public class MemberApiController {
                         .password(this.password)
                         .name(this.name)
                         .role(this.role)
+                        .location(location)
                         .email(this.email)
                         .birthday(this.birthday)
                         .phoneNumber(this.phoneNumber)
@@ -128,6 +131,7 @@ public class MemberApiController {
         private String id;
         private String name;
         private MemberRole role;
+        private String location;
         private String email;
         private Date birthday;
         private String phoneNumber;
@@ -136,6 +140,7 @@ public class MemberApiController {
             this.id = entity.getId();
             this.name = entity.getName();
             this.role = entity.getRole();
+            this.location = entity.getLocation();
             this.email = entity.getEmail();
             this.birthday = entity.getBirthday();
             this.phoneNumber = entity.getPhoneNumber();
