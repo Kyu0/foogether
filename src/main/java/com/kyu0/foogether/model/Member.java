@@ -51,6 +51,9 @@ public class Member {
     @Email(message = "이메일 형식이 맞지 않습니다.")
     @Column(name="email", nullable = false)
     private String email;
+
+    @Column(name="location")
+    private String location;
     
     @Temporal(TemporalType.DATE)
     @Column(name="birthday", nullable = false)
@@ -69,13 +72,14 @@ public class Member {
     
     @Builder
     public Member (String id, String password, String name, MemberRole role, String email,
-                 Date birthday, String phoneNumber, Boolean isUse) {
+                 String location, Date birthday, String phoneNumber, Boolean isUse) {
         
         this.id = id;
         this.password = password;
         this.name = name;
         this.role = role;
         this.email = email;
+        this.location = location;
         this.birthday = birthday;
         this.phoneNumber = phoneNumber;
         this.isUse = isUse;
@@ -83,7 +87,8 @@ public class Member {
 
     @Override
     public String toString() {
-        return "Member [birthday=" + birthday + ", email=" + email + ", id=" + id + ", isUse=" + isUse + ", name="
-        + name + ", password=" + password + ", phoneNumber=" + phoneNumber + ", role=" + role + "]";
+        return "Member [birthday=" + birthday + ", email=" + email + ", id=" + id + ", isUse=" + isUse + ", location="
+                + location + ", name=" + name + ", password=" + password + ", phoneNumber=" + phoneNumber
+                + ", role=" + role + "]";
     }
 }
