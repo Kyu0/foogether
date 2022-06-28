@@ -68,8 +68,8 @@ public class MemberApiController {
         return null;
     }
     
-    @DeleteMapping("/api/v1/member")
-    public ApiResult<?> delete(@RequestBody String id) {
+    @DeleteMapping("/api/v1/member/{id}")
+    public ApiResult<?> delete(@PathVariable String id) {
         memberService.delete(id);
         return ApiUtils.success(null);
     }
