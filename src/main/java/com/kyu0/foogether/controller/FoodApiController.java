@@ -30,6 +30,17 @@ public class FoodApiController {
         return ApiUtils.success(foodService.save(request.toEntity()));
     }
 
+    @GetMapping("/api/v1/food/{id}")
+    public ApiResult<?> findById(@PathVariable Integer id) {
+        return ApiUtils.success(foodService.findById(id).orElseThrow(() -> new NoSuchElementException("잘못된 접근입니다.")));
+    }
+
+    @DeleteMapping("/api/v1/food/{id}")
+    public ApiResult<?> delete(@PathVariable Integer id) {
+        foodService.delete(id);
+        return ApiUtils.success(null);
+    }
+
     // DTO 선언
 
     @NoArgsConstructor
