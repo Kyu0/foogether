@@ -51,7 +51,7 @@ public class RestaurantApiController {
                                ));
     }
 
-    @GetMapping("/api/v1/restaurant/foods/{restaurantId}")
+    @GetMapping("/api/v1/restaurant/{restaurantId}/foods")
     public ApiResult<?> findFoods(@PathVariable(name = "restaurantId") Integer restaurantId) {
         return ApiUtils.success(restaurantService.findFoods(restaurantId));
     }
