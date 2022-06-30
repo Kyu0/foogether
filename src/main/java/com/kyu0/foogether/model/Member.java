@@ -44,15 +44,17 @@ public class Member {
     
     @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name="role", nullable = false)
+    @Column(name="role", nullable = false, length = 16)
     private MemberRole role;
 
     @NotBlank(message = "빈 칸은 허용되지 않습니다.")
     @Email(message = "이메일 형식이 맞지 않습니다.")
-    @Column(name="email", nullable = false)
+    @Size(max = 64)
+    @Column(name="email", nullable = false, length = 64)
     private String email;
 
-    @Column(name="location")
+    @Size(max = 128)
+    @Column(name="location", length = 128)
     private String location;
     
     @Temporal(TemporalType.DATE)
@@ -61,7 +63,7 @@ public class Member {
     
     @NotBlank(message = "연락처")
     @Pattern(regexp = PHONE_NUMBER_PATTERN, message = "연락처는 000-000-0000 또는 000-0000-0000, 00-000-0000 형식으로 입력해주세요.")
-    @Column(name="phone_number", nullable = false)
+    @Column(name="phone_number", nullable = false, length = 13)
     private String phoneNumber;
     
     @Column(name="use", nullable = false)

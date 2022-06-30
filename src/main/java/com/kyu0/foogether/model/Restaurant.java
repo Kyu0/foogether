@@ -38,27 +38,27 @@ public class Restaurant {
     private Integer id;
     
     @Size(min = 2, max = 32, message = "가게 이름은 2자 이상, 32자 이하로 입력해주세요.")
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, length = 32)
     private String name;
     
     @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "type", nullable = false)
+    @Column(name = "type", nullable = false, length = 16)
     private RestaurantType type;
     
     @Pattern(regexp = BUSINESS_NUMBER_PATTERN, message = "사업자 등록 번호의 형식이 맞지 않습니다.")
-    @Column(name = "business_number", nullable = false)
+    @Column(name = "business_number", nullable = false, length = 12)
     private String businessNumber;
     
-    @Column(name = "address", nullable = false)
+    @Column(name = "address", nullable = false, length = 128)
     private String address;
     
     @Pattern(regexp = POST_NUMBER_PATTERN, message = "우편 번호의 형식이 맞지 않습니다.")
-    @Column(name = "post_number", nullable = false)
+    @Column(name = "post_number", nullable = false, length = 5)
     private String postNumber;
 
     @Size(max = 1000, message = "가게의 설명글은 1,000자 이하로 입력해주세요.")
-    @Column(name = "description")
+    @Column(name = "description", length = 1000)
     private String description;
     
     @Column(name = "use", nullable = false)
