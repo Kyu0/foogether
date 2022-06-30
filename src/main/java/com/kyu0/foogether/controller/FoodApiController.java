@@ -79,7 +79,7 @@ public class FoodApiController {
     @NoArgsConstructor
     @Getter
     public static class FoodResponse {
-        private Integer id;
+        private Long id;
         private String name;
         private Integer price;
         private String description;

@@ -14,13 +14,12 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 @Entity
 public class Food {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
 
     @Column
     private String name;
@@ -39,7 +38,7 @@ public class Food {
     private Restaurant restaurant;
 
     @Builder
-    public Food(Integer id, String name, Integer price, String description, boolean isSoldout, Restaurant restaurant) {
+    public Food(Long id, String name, Integer price, String description, boolean isSoldout, Restaurant restaurant) {
         this.id = id;
         this.name = name;
         this.price = price;
