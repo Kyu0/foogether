@@ -18,11 +18,17 @@ Spring Boot 기반 배달 웹 어플리케이션
 - [fix] : 기능 수정 시 (오류 X)
 - [bug] : 오류 수정 시
 - [remove] : 기능 삭제 시
+
 - [test] : 테스트 케이스 추가 시
 - [docs] : 문서 수정 시
 
 ---
 ## Domain 컬럼 및 생성 규칙
+
+### 데이터베이스 스키마(지속 수정 예정)
+![foogether](https://user-images.githubusercontent.com/56034014/176667048-8fe856ec-291e-4e96-a52d-6dfc6cd861c6.png)
+
+---
 
 ### Member
  - [id] : 5자 이상, 16자 이하
