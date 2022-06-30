@@ -71,6 +71,9 @@ public class Member {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "member")
     private List<Restaurant> restaurants;
+
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "member")
+    private Cart cart;
     
     @Builder
     public Member (String id, String password, String name, MemberRole role, String email,
