@@ -24,6 +24,13 @@ public class Cart {
     @OneToMany
     private List<Food> foods;
 
+    @Builder
+    public Cart(Member member, Restaurant restaurant, List<Food> foods) {
+        this.member = member;
+        this.restaurant = restaurant;
+        this.foods = foods;
+    }
+
     public void addFood(Food food) {
         foods.add(food);
     }
