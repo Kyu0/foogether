@@ -72,7 +72,7 @@ public class Member {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "member")
     private List<Restaurant> restaurants;
 
-    @OneToOne(fetch = FetchType.EAGER, mappedBy = "member")
+    @OneToOne(fetch = FetchType.EAGER)
     private Cart cart;
     
     @Builder

@@ -12,9 +12,9 @@ import lombok.*;
 public class Cart {
 
     @Id @GeneratedValue
-    private Long id;
+    Long id;
 
-    @OneToOne
+    @OneToOne(mappedBy = "cart")
     private Member member;
 
     @OneToOne
@@ -24,11 +24,6 @@ public class Cart {
     @OneToMany
     private List<Food> foods;
 
-    @Builder
-    public Cart(Long id) {
-        this.id = id;
-    }
-
     public void addFood(Food food) {
         foods.add(food);
     }
@@ -36,10 +31,4 @@ public class Cart {
     public void deleteFood(Food food) {
         foods.remove(food);
     }
-
-    @Override
-    public String toString() {
-        return "Cart [foods=" + foods + ", id=" + id + ", memberId=" + member.getId() + ", restaurantId=" + restaurant.getId() + "]";
-    }
-
 }
